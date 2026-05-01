@@ -146,9 +146,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_exchange_rates_task",
       "community": 4,
-      "norm_label": "exchange rates task assignment"
+      "norm_label": "exchange rates task assignment",
+      "id": "assignment_exchange_rates_task"
     },
     {
       "label": "fixer.io as Exchange Rates Source",
@@ -159,9 +159,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_fixer_io_source",
       "community": 5,
-      "norm_label": "fixer.io as exchange rates source"
+      "norm_label": "fixer.io as exchange rates source",
+      "id": "assignment_fixer_io_source"
     },
     {
       "label": "Caching Layer over Third-Party Service",
@@ -172,9 +172,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_caching_layer_pattern",
       "community": 5,
-      "norm_label": "caching layer over third-party service"
+      "norm_label": "caching layer over third-party service",
+      "id": "assignment_caching_layer_pattern"
     },
     {
       "label": "PostgreSQL for Cached Exchange Rates",
@@ -185,9 +185,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_postgresql_cache",
       "community": 5,
-      "norm_label": "postgresql for cached exchange rates"
+      "norm_label": "postgresql for cached exchange rates",
+      "id": "assignment_postgresql_cache"
     },
     {
       "label": "Architecture Quality over Feature Coverage",
@@ -198,9 +198,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_architecture_priority",
       "community": 4,
-      "norm_label": "architecture quality over feature coverage"
+      "norm_label": "architecture quality over feature coverage",
+      "id": "assignment_architecture_priority"
     },
     {
       "label": "Solid Error Handling for Downstream Services",
@@ -211,9 +211,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_error_handling_requirement",
       "community": 4,
-      "norm_label": "solid error handling for downstream services"
+      "norm_label": "solid error handling for downstream services",
+      "id": "assignment_error_handling_requirement"
     },
     {
       "label": "No API Authentication Needed (Internal Service)",
@@ -224,9 +224,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_no_auth_required",
       "community": 4,
-      "norm_label": "no api authentication needed (internal service)"
+      "norm_label": "no api authentication needed (internal service)",
+      "id": "assignment_no_auth_required"
     },
     {
       "label": "Hibernate/JPA Requirement",
@@ -237,9 +237,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_hibernate_requirement",
       "community": 5,
-      "norm_label": "hibernate/jpa requirement"
+      "norm_label": "hibernate/jpa requirement",
+      "id": "assignment_hibernate_requirement"
     },
     {
       "label": "Base Currency USD",
@@ -250,9 +250,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_usd_base_currency",
       "community": 6,
-      "norm_label": "base currency usd"
+      "norm_label": "base currency usd",
+      "id": "assignment_usd_base_currency"
     },
     {
       "label": "GET /api/v1/rates/{day} Endpoint",
@@ -263,9 +263,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "assignment_api_endpoint",
       "community": 7,
-      "norm_label": "get /api/v1/rates/{day} endpoint"
+      "norm_label": "get /api/v1/rates/{day} endpoint",
+      "id": "assignment_api_endpoint"
     },
     {
       "label": "Exchange Rates Caching Service (ShipMonk Interview)",
@@ -276,9 +276,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_project_purpose",
       "community": 0,
-      "norm_label": "exchange rates caching service (shipmonk interview)"
+      "norm_label": "exchange rates caching service (shipmonk interview)",
+      "id": "claude_project_purpose"
     },
     {
       "label": "Expected Architecture Layers (Controller/Service/Repository/Client)",
@@ -289,9 +289,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_architecture_layers",
       "community": 0,
-      "norm_label": "expected architecture layers (controller/service/repository/client)"
+      "norm_label": "expected architecture layers (controller/service/repository/client)",
+      "id": "claude_architecture_layers"
     },
     {
       "label": "Service Layer (Cache Check + Fixer.io Fallback)",
@@ -302,9 +302,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_service_layer",
       "community": 1,
-      "norm_label": "service layer (cache check + fixer.io fallback)"
+      "norm_label": "service layer (cache check + fixer.io fallback)",
+      "id": "claude_service_layer"
     },
     {
       "label": "Repository Layer (Hibernate/JPA Entity)",
@@ -315,9 +315,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_repository_layer",
       "community": 8,
-      "norm_label": "repository layer (hibernate/jpa entity)"
+      "norm_label": "repository layer (hibernate/jpa entity)",
+      "id": "claude_repository_layer"
     },
     {
       "label": "Fixer.io HTTP Client",
@@ -328,9 +328,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_fixer_client",
       "community": 6,
-      "norm_label": "fixer.io http client"
+      "norm_label": "fixer.io http client",
+      "id": "claude_fixer_client"
     },
     {
       "label": "PostgreSQL 14 via Docker Compose",
@@ -341,9 +341,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_postgres_docker",
       "community": 8,
-      "norm_label": "postgresql 14 via docker compose"
+      "norm_label": "postgresql 14 via docker compose",
+      "id": "claude_postgres_docker"
     },
     {
       "label": "Fixer.io Access Key in application.properties",
@@ -354,9 +354,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_access_key_in_properties",
       "community": 6,
-      "norm_label": "fixer.io access key in application.properties"
+      "norm_label": "fixer.io access key in application.properties",
+      "id": "claude_access_key_in_properties"
     },
     {
       "label": "Error Handling Constraint (Downstream Simplification)",
@@ -367,9 +367,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_error_handling_constraint",
       "community": 1,
-      "norm_label": "error handling constraint (downstream simplification)"
+      "norm_label": "error handling constraint (downstream simplification)",
+      "id": "claude_error_handling_constraint"
     },
     {
       "label": "Rationale: Architecture Quality Prioritised Over Feature Coverage",
@@ -380,9 +380,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_rationale_architecture_over_features",
       "community": 0,
-      "norm_label": "rationale: architecture quality prioritised over feature coverage"
+      "norm_label": "rationale: architecture quality prioritised over feature coverage",
+      "id": "claude_rationale_architecture_over_features"
     },
     {
       "label": "Rationale: No Auth Because Internal Service",
@@ -393,9 +393,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "claude_rationale_no_auth",
       "community": 0,
-      "norm_label": "rationale: no auth because internal service"
+      "norm_label": "rationale: no auth because internal service",
+      "id": "claude_rationale_no_auth"
     },
     {
       "label": "Graph Report Summary (35 nodes, 35 edges, 7 communities)",
@@ -406,9 +406,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_graph_summary",
       "community": 2,
-      "norm_label": "graph report summary (35 nodes, 35 edges, 7 communities)"
+      "norm_label": "graph report summary (35 nodes, 35 edges, 7 communities)",
+      "id": "graphreport_graph_summary"
     },
     {
       "label": "Community: Assignment Constraints & Rationale",
@@ -419,9 +419,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_community_assignment_constraints",
       "community": 2,
-      "norm_label": "community: assignment constraints & rationale"
+      "norm_label": "community: assignment constraints & rationale",
+      "id": "graphreport_community_assignment_constraints"
     },
     {
       "label": "Community: Data Source & Caching Layer",
@@ -432,9 +432,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_community_data_source",
       "community": 2,
-      "norm_label": "community: data source & caching layer"
+      "norm_label": "community: data source & caching layer",
+      "id": "graphreport_community_data_source"
     },
     {
       "label": "Community: Service Architecture",
@@ -445,9 +445,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_community_service_architecture",
       "community": 2,
-      "norm_label": "community: service architecture"
+      "norm_label": "community: service architecture",
+      "id": "graphreport_community_service_architecture"
     },
     {
       "label": "Community: App Bootstrap & Tests",
@@ -458,9 +458,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_community_app_bootstrap",
       "community": 2,
-      "norm_label": "community: app bootstrap & tests"
+      "norm_label": "community: app bootstrap & tests",
+      "id": "graphreport_community_app_bootstrap"
     },
     {
       "label": "God Node: Expected Architecture Layers (Controller/Service/Repository/Client)",
@@ -471,9 +471,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_god_node_arch_layers",
       "community": 0,
-      "norm_label": "god node: expected architecture layers (controller/service/repository/client)"
+      "norm_label": "god node: expected architecture layers (controller/service/repository/client)",
+      "id": "graphreport_god_node_arch_layers"
     },
     {
       "label": "God Node: Service Layer (Cache Check + Fixer.io Fallback)",
@@ -484,9 +484,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_god_node_service_layer",
       "community": 1,
-      "norm_label": "god node: service layer (cache check + fixer.io fallback)"
+      "norm_label": "god node: service layer (cache check + fixer.io fallback)",
+      "id": "graphreport_god_node_service_layer"
     },
     {
       "label": "God Node: Fixer.io HTTP Client",
@@ -497,9 +497,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_god_node_fixer_client",
       "community": 6,
-      "norm_label": "god node: fixer.io http client"
+      "norm_label": "god node: fixer.io http client",
+      "id": "graphreport_god_node_fixer_client"
     },
     {
       "label": "Hyperedge: Cache-aside Pattern (Controller -> Service -> Repository/Fixer.io)",
@@ -510,9 +510,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_hyperedge_cache_aside",
       "community": 1,
-      "norm_label": "hyperedge: cache-aside pattern (controller -> service -> repository/fixer.io)"
+      "norm_label": "hyperedge: cache-aside pattern (controller -> service -> repository/fixer.io)",
+      "id": "graphreport_hyperedge_cache_aside"
     },
     {
       "label": "Hyperedge: Assignment Non-Functional Requirements (Architecture, Error Handling, No Auth)",
@@ -523,9 +523,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_hyperedge_nonfunctional",
       "community": 1,
-      "norm_label": "hyperedge: assignment non-functional requirements (architecture, error handling, no auth)"
+      "norm_label": "hyperedge: assignment non-functional requirements (architecture, error handling, no auth)",
+      "id": "graphreport_hyperedge_nonfunctional"
     },
     {
       "label": "Hyperedge: PostgreSQL + Hibernate + Docker Compose Persistence Stack",
@@ -536,9 +536,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "graphreport_hyperedge_persistence",
       "community": 8,
-      "norm_label": "hyperedge: postgresql + hibernate + docker compose persistence stack"
+      "norm_label": "hyperedge: postgresql + hibernate + docker compose persistence stack",
+      "id": "graphreport_hyperedge_persistence"
     }
   ],
   "links": [
@@ -609,8 +609,8 @@
       "source_file": "ASSIGNMENT.md",
       "source_location": "line 7",
       "weight": 1.0,
-      "_src": "assignment_architecture_priority",
-      "_tgt": "assignment_exchange_rates_task",
+      "_src": "assignment_exchange_rates_task",
+      "_tgt": "assignment_architecture_priority",
       "source": "assignment_exchange_rates_task",
       "target": "assignment_architecture_priority"
     },
@@ -621,8 +621,8 @@
       "source_file": "ASSIGNMENT.md",
       "source_location": "line 18",
       "weight": 1.0,
-      "_src": "assignment_error_handling_requirement",
-      "_tgt": "assignment_exchange_rates_task",
+      "_src": "assignment_exchange_rates_task",
+      "_tgt": "assignment_error_handling_requirement",
       "source": "assignment_exchange_rates_task",
       "target": "assignment_error_handling_requirement"
     },
@@ -633,8 +633,8 @@
       "source_file": "ASSIGNMENT.md",
       "source_location": "line 16",
       "weight": 1.0,
-      "_src": "assignment_no_auth_required",
-      "_tgt": "assignment_exchange_rates_task",
+      "_src": "assignment_exchange_rates_task",
+      "_tgt": "assignment_no_auth_required",
       "source": "assignment_exchange_rates_task",
       "target": "assignment_no_auth_required"
     },
@@ -645,8 +645,8 @@
       "source_file": "ASSIGNMENT.md",
       "source_location": "line 3",
       "weight": 1.0,
-      "_src": "assignment_caching_layer_pattern",
-      "_tgt": "assignment_fixer_io_source",
+      "_src": "assignment_fixer_io_source",
+      "_tgt": "assignment_caching_layer_pattern",
       "source": "assignment_fixer_io_source",
       "target": "assignment_caching_layer_pattern"
     },
@@ -669,8 +669,8 @@
       "source_file": "ASSIGNMENT.md",
       "source_location": "line 14",
       "weight": 1.0,
-      "_src": "assignment_hibernate_requirement",
-      "_tgt": "assignment_postgresql_cache",
+      "_src": "assignment_postgresql_cache",
+      "_tgt": "assignment_hibernate_requirement",
       "source": "assignment_postgresql_cache",
       "target": "assignment_hibernate_requirement"
     },
@@ -705,8 +705,8 @@
       "source_file": "CLAUDE.md",
       "source_location": "Key constraints section",
       "weight": 1.0,
-      "_src": "claude_rationale_no_auth",
-      "_tgt": "claude_project_purpose",
+      "_src": "claude_project_purpose",
+      "_tgt": "claude_rationale_no_auth",
       "source": "claude_project_purpose",
       "target": "claude_rationale_no_auth"
     },
@@ -765,8 +765,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "God Nodes section",
       "weight": 1.0,
-      "_src": "graphreport_god_node_arch_layers",
-      "_tgt": "claude_architecture_layers",
+      "_src": "claude_architecture_layers",
+      "_tgt": "graphreport_god_node_arch_layers",
       "source": "claude_architecture_layers",
       "target": "graphreport_god_node_arch_layers"
     },
@@ -801,8 +801,8 @@
       "source_file": "CLAUDE.md",
       "source_location": "Key constraints section",
       "weight": 1.0,
-      "_src": "claude_error_handling_constraint",
-      "_tgt": "claude_service_layer",
+      "_src": "claude_service_layer",
+      "_tgt": "claude_error_handling_constraint",
       "source": "claude_service_layer",
       "target": "claude_error_handling_constraint"
     },
@@ -813,8 +813,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "God Nodes section",
       "weight": 1.0,
-      "_src": "graphreport_god_node_service_layer",
-      "_tgt": "claude_service_layer",
+      "_src": "claude_service_layer",
+      "_tgt": "graphreport_god_node_service_layer",
       "source": "claude_service_layer",
       "target": "graphreport_god_node_service_layer"
     },
@@ -825,8 +825,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "Hyperedges section",
       "weight": 1.0,
-      "_src": "graphreport_hyperedge_cache_aside",
-      "_tgt": "claude_service_layer",
+      "_src": "claude_service_layer",
+      "_tgt": "graphreport_hyperedge_cache_aside",
       "source": "claude_service_layer",
       "target": "graphreport_hyperedge_cache_aside"
     },
@@ -849,8 +849,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "Hyperedges section",
       "weight": 1.0,
-      "_src": "graphreport_hyperedge_persistence",
-      "_tgt": "claude_repository_layer",
+      "_src": "claude_repository_layer",
+      "_tgt": "graphreport_hyperedge_persistence",
       "source": "claude_repository_layer",
       "target": "graphreport_hyperedge_persistence"
     },
@@ -873,8 +873,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "God Nodes section",
       "weight": 1.0,
-      "_src": "graphreport_god_node_fixer_client",
-      "_tgt": "claude_fixer_client",
+      "_src": "claude_fixer_client",
+      "_tgt": "graphreport_god_node_fixer_client",
       "source": "claude_fixer_client",
       "target": "graphreport_god_node_fixer_client"
     },
@@ -885,8 +885,8 @@
       "source_file": "graphify-out/GRAPH_REPORT.md",
       "source_location": "Hyperedges section",
       "weight": 1.0,
-      "_src": "graphreport_hyperedge_nonfunctional",
-      "_tgt": "claude_error_handling_constraint",
+      "_src": "claude_error_handling_constraint",
+      "_tgt": "graphreport_hyperedge_nonfunctional",
       "source": "claude_error_handling_constraint",
       "target": "graphreport_hyperedge_nonfunctional"
     },
@@ -897,8 +897,8 @@
       "source_file": "CLAUDE.md",
       "source_location": "Key constraints section",
       "weight": 0.7,
-      "_src": "claude_rationale_architecture_over_features",
-      "_tgt": "claude_error_handling_constraint",
+      "_src": "claude_error_handling_constraint",
+      "_tgt": "claude_rationale_architecture_over_features",
       "source": "claude_error_handling_constraint",
       "target": "claude_rationale_architecture_over_features"
     },
