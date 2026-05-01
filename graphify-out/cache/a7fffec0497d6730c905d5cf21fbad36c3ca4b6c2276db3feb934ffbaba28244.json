@@ -1,0 +1,1 @@
+{"nodes": [], "edges": [{"source": "solid_error_handling_for_downstream_services", "target": "exchange_rates_task_assignment", "relation": "rationale_for", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "graphify-out/obsidian/Solid Error Handling for Downstream Services.md", "source_location": null, "weight": 1.0}], "hyperedges": []}

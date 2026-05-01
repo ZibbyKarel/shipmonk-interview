@@ -1,8 +1,15 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(npx skills *)",
-      "WebFetch(domain:skills.sh)"
-    ]
-  }
+    "permissions": {
+        "allow": [
+            "Bash(npx skills *)",
+            "WebFetch(domain:skills.sh)",
+            "Bash(./mvnw package *)",
+            "Bash(brew list *)",
+            "Bash(java -version)",
+            "Bash(/usr/libexec/java_home)",
+            "Skill(update-config)",
+            "Bash(echo \"Exit: $?\")",
+            "Bash(graphify *)"
+        ]
+    }
 }

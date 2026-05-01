@@ -1,0 +1,1 @@
+{"nodes": [], "edges": [{"source": "community_service_architecture", "target": "graph_report_summary", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "graphify-out/obsidian/Community Service Architecture.md", "source_location": null, "weight": 1.0}], "hyperedges": []}

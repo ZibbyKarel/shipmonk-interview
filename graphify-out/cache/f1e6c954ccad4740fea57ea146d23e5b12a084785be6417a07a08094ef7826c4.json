@@ -1,0 +1,1 @@
+{"nodes": [], "edges": [{"source": "rationale_no_auth_because_internal_service", "target": "exchange_rates_caching_service_shipmonk_interview", "relation": "rationale_for", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "graphify-out/obsidian/Rationale No Auth Because Internal Service.md", "source_location": null, "weight": 1.0}], "hyperedges": []}

@@ -1,0 +1,1 @@
+{"nodes": [], "edges": [{"source": "hibernatejpa_requirement", "target": "postgresql_for_cached_exchange_rates", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "graphify-out/obsidian/HibernateJPA Requirement.md", "source_location": null, "weight": 1.0}], "hyperedges": []}

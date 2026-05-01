@@ -1,0 +1,2834 @@
+openapi: 3.1.0
+info:
+  title: Fixer API
+  version: 1.0.0
+  description: >
+    Powered by 15+ exchange rate data sources, the Fixer API is capable of
+    delivering real-time exchange rate data for 170 world currencies. The API
+    comes with multiple endpoints, each serving a different use case. Endpoint
+    functionalities include getting the latest exchange rate data for all or a
+    specific set of currencies, converting amounts from one currency to another,
+    retrieving Time-Series data for one or multiple currencies and querying the
+    API for daily fluctuation data.
+servers:
+  - url: https://data.fixer.io/api
+security:
+  - AccessKeyQuery: []
+paths:
+  /symbols:
+    get:
+      summary: Supported Symbols
+      description: >
+        The Fixer API comes with a constantly updated endpoint returning all
+        available currencies. To access this list, make a request to the API's
+        Supported Symbols endpoint.
+      operationId: getSymbols
+      parameters:
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: List of supported currency symbols.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response from `/symbols` listing supported currencies.
+                properties:
+                  success:
+                    type: boolean
+                    description: Whether the request succeeded.
+                    example: true
+                  symbols:
+                    type: object
+                    description: Map of currency code -> currency name.
+                    additionalProperties:
+                      type: string
+                required:
+                  - success
+                  - symbols
+              examples:
+                default:
+                  value:
+                    success: true
+                    symbols:
+                      USD: United States Dollar
+                      EUR: Euro
+                      GBP: British Pound Sterling
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+  /latest:
+    get:
+      summary: Latest Rates
+      description: >
+        Depending on your subscription plan, the API's Latest Rates endpoint
+        will return real-time exchange rate data updated every 60 minutes, every
+        10 minutes or every 60 seconds.
+          
+        **Please note:** The default base currency is EUR.
+      operationId: getLatestRates
+      parameters:
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: base
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}$
+          description: >
+            Base currency (three-letter ISO code) to which returned rates are
+            relative. Default base is EUR. Changing base may be restricted by
+            subscription plan. :contentReference[oaicite:3]{index=3}
+          example: USD
+        - name: symbols
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}(,[A-Z]{3})*$
+          description: >
+            Comma-separated list of currency codes to limit the `rates`/`quotes`
+            output (e.g., `USD,GBP,JPY`).
+          example: USD,GBP,JPY
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: Latest rates snapshot.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Latest exchange rates (single snapshot).
+                properties:
+                  success:
+                    type: boolean
+                    description: Whether the request succeeded.
+                    example: true
+                  timestamp:
+                    type: integer
+                    description: UNIX timestamp of the data snapshot.
+                    example: 1519296206
+                  base:
+                    type: string
+                    description: Base currency for the rates (three-letter ISO code).
+                    example: EUR
+                  date:
+                    type: string
+                    format: date
+                    description: Date of the rates snapshot (YYYY-MM-DD).
+                    example: '2025-09-15'
+                  rates:
+                    type: object
+                    description: Map of currency code -> numeric rate relative to `base`.
+                    additionalProperties:
+                      type: number
+                required:
+                  - success
+                  - timestamp
+                  - base
+                  - date
+                  - rates
+              examples:
+                default:
+                  value:
+                    success: true
+                    timestamp: 1519296206
+                    base: EUR
+                    date: '2025-09-15'
+                    rates:
+                      USD: 1.23396
+                      GBP: 0.882047
+                      JPY: 132.360679
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '403':
+          description: >-
+            The current subscription plan does not grant access to the requested
+            feature/endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                restricted:
+                  value:
+                    success: false
+                    error:
+                      code: 403
+                      info: >-
+                        The current subscription plan does not support this API
+                        endpoint.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+  /{date}:
+    get:
+      summary: Historical Rates
+      description: >
+        Historical rates are available for most currencies all the way back to
+        the year of 1999. You can query the Fixer API for historical rates by
+        appending a date (format `YYYY-MM-DD`) to the base URL.
+      operationId: getHistoricalRates
+      parameters:
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string
+            format: date
+          description: >-
+            Date path parameter in format `YYYY-MM-DD` for the historical
+            endpoint.
+          example: '2013-12-24'
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: base
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}$
+          description: >
+            Base currency (three-letter ISO code) to which returned rates are
+            relative. Default base is EUR. Changing base may be restricted by
+            subscription plan. :contentReference[oaicite:3]{index=3}
+          example: USD
+        - name: symbols
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}(,[A-Z]{3})*$
+          description: >
+            Comma-separated list of currency codes to limit the `rates`/`quotes`
+            output (e.g., `USD,GBP,JPY`).
+          example: USD,GBP,JPY
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: Historical rates for the specified date.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Historical rates for a given date.
+                properties:
+                  success:
+                    type: boolean
+                    description: Whether the request succeeded.
+                    example: true
+                  historical:
+                    type: boolean
+                    description: True for historical requests.
+                    example: true
+                  date:
+                    type: string
+                    format: date
+                    description: Date requested.
+                  timestamp:
+                    type: integer
+                    description: UNIX timestamp for the snapshot.
+                  base:
+                    type: string
+                    description: Base currency for returned rates.
+                  rates:
+                    type: object
+                    additionalProperties:
+                      type: number
+                required:
+                  - success
+                  - historical
+                  - date
+                  - timestamp
+                  - base
+                  - rates
+              examples:
+                default:
+                  value:
+                    success: true
+                    historical: true
+                    date: '2013-12-24'
+                    timestamp: 1387929599
+                    base: GBP
+                    rates:
+                      USD: 1.636492
+                      EUR: 1.196476
+                      CAD: 1.739516
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '403':
+          description: >-
+            The current subscription plan does not grant access to the requested
+            feature/endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                restricted:
+                  value:
+                    success: false
+                    error:
+                      code: 403
+                      info: >-
+                        The current subscription plan does not support this API
+                        endpoint.
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                missing:
+                  value:
+                    success: false
+                    error:
+                      code: 404
+                      info: The requested resource does not exist.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+  /convert:
+    get:
+      summary: Convert
+      description: >
+        The Fixer API comes with a separate currency conversion endpoint, which
+        can be used to convert any amount from one currency to another. In order
+        to convert currencies, please use the API's Convert endpoint, append the
+        `from` and `to` parameters and set them to your preferred base and
+        target currency codes.
+      operationId: convertCurrency
+      parameters:
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Source currency code used for convert endpoint.
+          example: GBP
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Target currency code used for convert endpoint.
+          example: JPY
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+          description: Amount to convert (positive number).
+          example: 25
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: >-
+            Optional date (`YYYY-MM-DD`) for the convert endpoint to perform
+            historical conversion.
+          example: '2018-02-22'
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: Conversion result and metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Convert endpoint response.
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  query:
+                    type: object
+                    description: Echo of conversion query parameters.
+                    properties:
+                      from:
+                        type: string
+                        description: Source currency code.
+                        example: GBP
+                      to:
+                        type: string
+                        description: Target currency code.
+                        example: JPY
+                      amount:
+                        type: number
+                        description: Amount requested to convert.
+                        example: 25
+                    required:
+                      - from
+                      - to
+                      - amount
+                  info:
+                    type: object
+                    description: Rate metadata used for conversion.
+                    properties:
+                      timestamp:
+                        type: integer
+                        description: UNIX timestamp of the rate used.
+                        example: 1519328414
+                      rate:
+                        type: number
+                        description: >-
+                          Conversion rate used (1 unit of `from` equals `rate`
+                          units of `to`).
+                        example: 148.972231
+                    required:
+                      - timestamp
+                      - rate
+                  historical:
+                    type: boolean
+                    description: True if historical rates were used.
+                  date:
+                    type: string
+                    format: date
+                    description: Date associated with the rate used.
+                  result:
+                    type: number
+                    description: Calculated converted amount.
+                required:
+                  - success
+                  - query
+                  - info
+                  - result
+              examples:
+                default:
+                  value:
+                    success: true
+                    query:
+                      from: GBP
+                      to: JPY
+                      amount: 25
+                    info:
+                      timestamp: 1519328414
+                      rate: 148.972231
+                    historical: true
+                    date: '2018-02-22'
+                    result: 3724.305775
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '403':
+          description: >-
+            The current subscription plan does not grant access to the requested
+            feature/endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                restricted:
+                  value:
+                    success: false
+                    error:
+                      code: 403
+                      info: >-
+                        The current subscription plan does not support this API
+                        endpoint.
+        '404':
+          description: Resource not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                missing:
+                  value:
+                    success: false
+                    error:
+                      code: 404
+                      info: The requested resource does not exist.
+        '422':
+          description: Invalid or missing amount for conversion.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_amount:
+                  value:
+                    success: false
+                    error:
+                      code: 604
+                      info: No or an invalid amount has been specified.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+  /timeseries:
+    get:
+      summary: Time-series
+      description: >
+        If supported by your subscription plan, the Fixer API's Time-Series
+        endpoint lets you query the API for daily historical rates between two
+        dates of your choice, with a maximum time frame of 365 days.
+          
+           
+        **NOTE:** Because the trading/markets are closed over the weekend,
+        weekend days data is the last available known trading/market data.
+      operationId: getTimeSeries
+      parameters:
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: >-
+            Start date (inclusive) for timeseries/fluctuation queries
+            (YYYY-MM-DD). Max window 365 days.
+          example: '2015-12-01'
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: >-
+            End date (inclusive) for timeseries/fluctuation queries
+            (YYYY-MM-DD).
+          example: '2015-12-24'
+        - name: base
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}$
+          description: >
+            Base currency (three-letter ISO code) to which returned rates are
+            relative. Default base is EUR. Changing base may be restricted by
+            subscription plan. :contentReference[oaicite:3]{index=3}
+          example: USD
+        - name: symbols
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}(,[A-Z]{3})*$
+          description: >
+            Comma-separated list of currency codes to limit the `rates`/`quotes`
+            output (e.g., `USD,GBP,JPY`).
+          example: USD,GBP,JPY
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: Time-series rates keyed by ISO date.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Time-series daily rates between start_date and end_date.
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  timeseries:
+                    type: boolean
+                    description: True for timeseries responses.
+                    example: true
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  base:
+                    type: string
+                    description: Base currency for rates in the timeframe.
+                  rates:
+                    type: object
+                    description: Map of ISO date string -> map of currency -> rate.
+                    additionalProperties:
+                      type: object
+                      additionalProperties:
+                        type: number
+                required:
+                  - success
+                  - timeseries
+                  - start_date
+                  - end_date
+                  - base
+                  - rates
+              examples:
+                default:
+                  value:
+                    success: true
+                    timeseries: true
+                    start_date: '2012-05-01'
+                    end_date: '2012-05-03'
+                    base: EUR
+                    rates:
+                      '2012-05-01':
+                        USD: 1.322891
+                        AUD: 1.278047
+                        CAD: 1.302303
+                      '2012-05-02':
+                        USD: 1.315066
+                        AUD: 1.274202
+                        CAD: 1.299083
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '422':
+          description: >-
+            Invalid or missing date/start_date/end_date for
+            timeseries/fluctuation.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_range:
+                  value:
+                    success: false
+                    error:
+                      code: 605
+                      info: No or an invalid timeframe has been specified.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+  /fluctuation:
+    get:
+      summary: Fluctuation
+      description: >
+        Using the Fixer API's Fluctuation endpoint you will be able to retrieve
+        information about how currencies fluctuate on a day-to-day basis. To use
+        this feature, simply append a `start_date` and `end_date` and choose
+        which currencies (symbols) you would like to query the API for. Please
+        note that the maximum allowed timeframe is 365 days.
+      operationId: getFluctuation
+      parameters:
+        - name: access_key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Your Fixer API access key.
+          example: YOUR_API_KEY
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: >-
+            Start date (inclusive) for timeseries/fluctuation queries
+            (YYYY-MM-DD). Max window 365 days.
+          example: '2015-12-01'
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: >-
+            End date (inclusive) for timeseries/fluctuation queries
+            (YYYY-MM-DD).
+          example: '2015-12-24'
+        - name: base
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}$
+          description: >
+            Base currency (three-letter ISO code) to which returned rates are
+            relative. Default base is EUR. Changing base may be restricted by
+            subscription plan. :contentReference[oaicite:3]{index=3}
+          example: USD
+        - name: symbols
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}(,[A-Z]{3})*$
+          description: >
+            Comma-separated list of currency codes to limit the `rates`/`quotes`
+            output (e.g., `USD,GBP,JPY`).
+          example: USD,GBP,JPY
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            JSONP callback function name. If provided, the response will be
+            wrapped in this function.
+          example: myCallback
+      responses:
+        '200':
+          description: Fluctuation metrics for the requested period.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Fluctuation analysis between two dates.
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  fluctuation:
+                    type: boolean
+                    description: True for fluctuation responses.
+                    example: true
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  base:
+                    type: string
+                    description: Base currency for the returned metrics.
+                  rates:
+                    type: object
+                    description: Map of currency -> fluctuation metrics.
+                    additionalProperties:
+                      type: object
+                      properties:
+                        start_rate:
+                          type: number
+                          description: Rate at `start_date`.
+                        end_rate:
+                          type: number
+                          description: Rate at `end_date`.
+                        change:
+                          type: number
+                          description: Absolute change (end_rate − start_rate).
+                        change_pct:
+                          type: number
+                          description: Percentage change ((end_rate / start_rate) − 1).
+                      required:
+                        - start_rate
+                        - end_rate
+                        - change
+                        - change_pct
+                required:
+                  - success
+                  - fluctuation
+                  - start_date
+                  - end_date
+                  - base
+                  - rates
+              examples:
+                default:
+                  value:
+                    success: true
+                    fluctuation: true
+                    start_date: '2015-12-01'
+                    end_date: '2015-12-24'
+                    base: EUR
+                    rates:
+                      USD:
+                        start_rate: 1.066494
+                        end_rate: 1.073844
+                        change: 0.00735
+                        change_pct: 0.6899
+        '400':
+          description: Invalid or malformed request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                example:
+                  value:
+                    success: false
+                    error:
+                      code: 400
+                      info: Bad Request - required parameter missing or malformed
+        '401':
+          description: Missing or invalid API key (Unauthorized).
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_key:
+                  value:
+                    success: false
+                    error:
+                      code: 401
+                      info: >-
+                        No API Key was specified or an invalid API Key was
+                        specified.
+        '422':
+          description: >-
+            Invalid or missing date/start_date/end_date for
+            timeseries/fluctuation.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                invalid_range:
+                  value:
+                    success: false
+                    error:
+                      code: 605
+                      info: No or an invalid timeframe has been specified.
+        '429':
+          description: Rate limit or monthly quota exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                limit_reached:
+                  value:
+                    success: false
+                    error:
+                      code: 104
+                      info: >-
+                        Your monthly API request volume has been reached. Please
+                        upgrade your plan.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Standard error response returned by Fixer when a request
+                  fails.
+                properties:
+                  success:
+                    type: boolean
+                    description: Always false for error responses.
+                    example: false
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        description: >-
+                          Numeric error code. (Fixer docs list common codes such
+                          as 101, 104, 601-606, etc.)
+                        example: 104
+                      info:
+                        type: string
+                        description: >-
+                          Human-readable message describing the error and next
+                          steps.
+                        example: >-
+                          Your monthly API request volume has been reached.
+                          Please upgrade your plan.
+                    required:
+                      - code
+                required:
+                  - success
+                  - error
+              examples:
+                internal:
+                  value:
+                    success: false
+                    error:
+                      code: 500
+                      info: Internal server error.
+components:
+  securitySchemes:
+    AccessKeyQuery:
+      type: apiKey
+      in: query
+      name: access_key
+      description: >
+        API access key supplied as query parameter `access_key`. Required for
+        all endpoints. See Fixer docs for how to generate an API key.
+        :contentReference[oaicite:2]{index=2}
+  parameters:
+    access_key:
+      name: access_key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Your Fixer API access key.
+      example: YOUR_API_KEY
+    base:
+      name: base
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^[A-Z]{3}$
+      description: >
+        Base currency (three-letter ISO code) to which returned rates are
+        relative. Default base is EUR. Changing base may be restricted by
+        subscription plan. :contentReference[oaicite:3]{index=3}
+      example: USD
+    symbols:
+      name: symbols
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^[A-Z]{3}(,[A-Z]{3})*$
+      description: >
+        Comma-separated list of currency codes to limit the `rates`/`quotes`
+        output (e.g., `USD,GBP,JPY`).
+      example: USD,GBP,JPY
+    callback:
+      name: callback
+      in: query
+      required: false
+      schema:
+        type: string
+      description: >-
+        JSONP callback function name. If provided, the response will be wrapped
+        in this function.
+      example: myCallback
+    datePath:
+      name: date
+      in: path
+      required: true
+      schema:
+        type: string
+        format: date
+      description: Date path parameter in format `YYYY-MM-DD` for the historical endpoint.
+      example: '2013-12-24'
+    dateQuery:
+      name: date
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date
+      description: >-
+        Optional date (`YYYY-MM-DD`) for the convert endpoint to perform
+        historical conversion.
+      example: '2018-02-22'
+    convert_from:
+      name: from
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Source currency code used for convert endpoint.
+      example: GBP
+    convert_to:
+      name: to
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Target currency code used for convert endpoint.
+      example: JPY
+    amount:
+      name: amount
+      in: query
+      required: true
+      schema:
+        type: number
+        minimum: 0
+      description: Amount to convert (positive number).
+      example: 25
+    start_date:
+      name: start_date
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+      description: >-
+        Start date (inclusive) for timeseries/fluctuation queries (YYYY-MM-DD).
+        Max window 365 days.
+      example: '2015-12-01'
+    end_date:
+      name: end_date
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+      description: End date (inclusive) for timeseries/fluctuation queries (YYYY-MM-DD).
+      example: '2015-12-24'
+  schemas:
+    ApiError:
+      type: object
+      description: Standard error response returned by Fixer when a request fails.
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses.
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: >-
+                Numeric error code. (Fixer docs list common codes such as 101,
+                104, 601-606, etc.)
+              example: 104
+            info:
+              type: string
+              description: Human-readable message describing the error and next steps.
+              example: >-
+                Your monthly API request volume has been reached. Please upgrade
+                your plan.
+          required:
+            - code
+      required:
+        - success
+        - error
+    SymbolsResponse:
+      type: object
+      description: Response from `/symbols` listing supported currencies.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        symbols:
+          type: object
+          description: Map of currency code -> currency name.
+          additionalProperties:
+            type: string
+      required:
+        - success
+        - symbols
+    LatestRatesResponse:
+      type: object
+      description: Latest exchange rates (single snapshot).
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        timestamp:
+          type: integer
+          description: UNIX timestamp of the data snapshot.
+          example: 1519296206
+        base:
+          type: string
+          description: Base currency for the rates (three-letter ISO code).
+          example: EUR
+        date:
+          type: string
+          format: date
+          description: Date of the rates snapshot (YYYY-MM-DD).
+          example: '2025-09-15'
+        rates:
+          type: object
+          description: Map of currency code -> numeric rate relative to `base`.
+          additionalProperties:
+            type: number
+      required:
+        - success
+        - timestamp
+        - base
+        - date
+        - rates
+    HistoricalRatesResponse:
+      type: object
+      description: Historical rates for a given date.
+      properties:
+        success:
+          type: boolean
+          description: Whether the request succeeded.
+          example: true
+        historical:
+          type: boolean
+          description: True for historical requests.
+          example: true
+        date:
+          type: string
+          format: date
+          description: Date requested.
+        timestamp:
+          type: integer
+          description: UNIX timestamp for the snapshot.
+        base:
+          type: string
+          description: Base currency for returned rates.
+        rates:
+          type: object
+          additionalProperties:
+            type: number
+      required:
+        - success
+        - historical
+        - date
+        - timestamp
+        - base
+        - rates
+    ConvertQuery:
+      type: object
+      description: Echo of conversion query parameters.
+      properties:
+        from:
+          type: string
+          description: Source currency code.
+          example: GBP
+        to:
+          type: string
+          description: Target currency code.
+          example: JPY
+        amount:
+          type: number
+          description: Amount requested to convert.
+          example: 25
+      required:
+        - from
+        - to
+        - amount
+    ConvertInfo:
+      type: object
+      description: Rate metadata used for conversion.
+      properties:
+        timestamp:
+          type: integer
+          description: UNIX timestamp of the rate used.
+          example: 1519328414
+        rate:
+          type: number
+          description: Conversion rate used (1 unit of `from` equals `rate` units of `to`).
+          example: 148.972231
+      required:
+        - timestamp
+        - rate
+    ConvertResponse:
+      type: object
+      description: Convert endpoint response.
+      properties:
+        success:
+          type: boolean
+          example: true
+        query:
+          type: object
+          description: Echo of conversion query parameters.
+          properties:
+            from:
+              type: string
+              description: Source currency code.
+              example: GBP
+            to:
+              type: string
+              description: Target currency code.
+              example: JPY
+            amount:
+              type: number
+              description: Amount requested to convert.
+              example: 25
+          required:
+            - from
+            - to
+            - amount
+        info:
+          type: object
+          description: Rate metadata used for conversion.
+          properties:
+            timestamp:
+              type: integer
+              description: UNIX timestamp of the rate used.
+              example: 1519328414
+            rate:
+              type: number
+              description: >-
+                Conversion rate used (1 unit of `from` equals `rate` units of
+                `to`).
+              example: 148.972231
+          required:
+            - timestamp
+            - rate
+        historical:
+          type: boolean
+          description: True if historical rates were used.
+        date:
+          type: string
+          format: date
+          description: Date associated with the rate used.
+        result:
+          type: number
+          description: Calculated converted amount.
+      required:
+        - success
+        - query
+        - info
+        - result
+    TimeSeriesResponse:
+      type: object
+      description: Time-series daily rates between start_date and end_date.
+      properties:
+        success:
+          type: boolean
+          example: true
+        timeseries:
+          type: boolean
+          description: True for timeseries responses.
+          example: true
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        base:
+          type: string
+          description: Base currency for rates in the timeframe.
+        rates:
+          type: object
+          description: Map of ISO date string -> map of currency -> rate.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+      required:
+        - success
+        - timeseries
+        - start_date
+        - end_date
+        - base
+        - rates
+    FluctuationResponse:
+      type: object
+      description: Fluctuation analysis between two dates.
+      properties:
+        success:
+          type: boolean
+          example: true
+        fluctuation:
+          type: boolean
+          description: True for fluctuation responses.
+          example: true
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        base:
+          type: string
+          description: Base currency for the returned metrics.
+        rates:
+          type: object
+          description: Map of currency -> fluctuation metrics.
+          additionalProperties:
+            type: object
+            properties:
+              start_rate:
+                type: number
+                description: Rate at `start_date`.
+              end_rate:
+                type: number
+                description: Rate at `end_date`.
+              change:
+                type: number
+                description: Absolute change (end_rate − start_rate).
+              change_pct:
+                type: number
+                description: Percentage change ((end_rate / start_rate) − 1).
+            required:
+              - start_rate
+              - end_rate
+              - change
+              - change_pct
+      required:
+        - success
+        - fluctuation
+        - start_date
+        - end_date
+        - base
+        - rates
+  responses:
+    BadRequest:
+      description: Invalid or malformed request parameters.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            example:
+              value:
+                success: false
+                error:
+                  code: 400
+                  info: Bad Request - required parameter missing or malformed
+    Unauthorized:
+      description: Missing or invalid API key (Unauthorized).
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            invalid_key:
+              value:
+                success: false
+                error:
+                  code: 401
+                  info: >-
+                    No API Key was specified or an invalid API Key was
+                    specified.
+    PlanRestriction:
+      description: >-
+        The current subscription plan does not grant access to the requested
+        feature/endpoint.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            restricted:
+              value:
+                success: false
+                error:
+                  code: 403
+                  info: >-
+                    The current subscription plan does not support this API
+                    endpoint.
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            missing:
+              value:
+                success: false
+                error:
+                  code: 404
+                  info: The requested resource does not exist.
+    InvalidAmount:
+      description: Invalid or missing amount for conversion.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            invalid_amount:
+              value:
+                success: false
+                error:
+                  code: 604
+                  info: No or an invalid amount has been specified.
+    InvalidDateRange:
+      description: Invalid or missing date/start_date/end_date for timeseries/fluctuation.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            invalid_range:
+              value:
+                success: false
+                error:
+                  code: 605
+                  info: No or an invalid timeframe has been specified.
+    RateLimit:
+      description: Rate limit or monthly quota exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            limit_reached:
+              value:
+                success: false
+                error:
+                  code: 104
+                  info: >-
+                    Your monthly API request volume has been reached. Please
+                    upgrade your plan.
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Standard error response returned by Fixer when a request fails.
+            properties:
+              success:
+                type: boolean
+                description: Always false for error responses.
+                example: false
+              error:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Numeric error code. (Fixer docs list common codes such as
+                      101, 104, 601-606, etc.)
+                    example: 104
+                  info:
+                    type: string
+                    description: >-
+                      Human-readable message describing the error and next
+                      steps.
+                    example: >-
+                      Your monthly API request volume has been reached. Please
+                      upgrade your plan.
+                required:
+                  - code
+            required:
+              - success
+              - error
+          examples:
+            internal:
+              value:
+                success: false
+                error:
+                  code: 500
+                  info: Internal server error.
+externalDocs:
+  description: Official Fixer documentation (reference)
+  url: https://fixer.io/documentation
