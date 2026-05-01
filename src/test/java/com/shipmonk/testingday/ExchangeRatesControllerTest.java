@@ -1,5 +1,6 @@
 package com.shipmonk.testingday;
 
+import com.shipmonk.testingday.controller.ExchangeRatesController;
 import com.shipmonk.testingday.dto.RatesResponse;
 import com.shipmonk.testingday.exception.FixerApiException;
 import com.shipmonk.testingday.exception.GlobalExceptionHandler;
