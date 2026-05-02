@@ -25,6 +25,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.emptyString;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
@@ -33,6 +36,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -80,6 +84,7 @@ class ExchangeRatesIT {
 
         mockMvc.perform(get("/api/v1/rates/2022-06-20"))
                 .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.header().exists("X-Trace-Id"))
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.historical").value(true))
                 .andExpect(jsonPath("$.date").value("2022-06-20"))
@@ -278,6 +283,7 @@ class ExchangeRatesIT {
     private void expectFixerCall(LocalDate date, String responseBodyJson) {
         mockServer.expect(requestTo(fixerUrl(date)))
                 .andExpect(method(HttpMethod.GET))
+                .andExpect(header("X-Trace-Id", not(emptyString())))
                 .andRespond(withSuccess(responseBodyJson, MediaType.APPLICATION_JSON));
     }
 

@@ -3,6 +3,8 @@ package com.shipmonk.testingday.rates.controller;
 import com.shipmonk.testingday.rates.dto.RatesResponse;
 import com.shipmonk.testingday.rates.exception.InvalidDateException;
 import com.shipmonk.testingday.rates.service.ExchangeRatesService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import java.time.format.DateTimeParseException;
 @RequestMapping(path = "/api/v1/rates")
 public class ExchangeRatesController {
 
+    private static final Logger log = LoggerFactory.getLogger(ExchangeRatesController.class);
+
     private final ExchangeRatesService exchangeRatesService;
 
     public ExchangeRatesController(ExchangeRatesService exchangeRatesService) {
@@ -24,6 +28,7 @@ public class ExchangeRatesController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/{day}")
     public ResponseEntity<RatesResponse> getRates(@PathVariable("day") String day) {
+        log.info("Received request for date={}", day);
         LocalDate date;
         try {
             date = LocalDate.parse(day);

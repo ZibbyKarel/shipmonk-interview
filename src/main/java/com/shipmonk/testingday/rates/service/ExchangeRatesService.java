@@ -7,6 +7,8 @@ import com.shipmonk.testingday.rates.exception.ProviderException;
 import com.shipmonk.testingday.rates.provider.ExchangeRateProvider;
 import com.shipmonk.testingday.rates.provider.ExchangeRates;
 import com.shipmonk.testingday.rates.repository.ExchangeRateSnapshotRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
 
 @Service
 public class ExchangeRatesService {
+
+    private static final Logger log = LoggerFactory.getLogger(ExchangeRatesService.class);
 
     private final ExchangeRateSnapshotRepository repository;
     private final ExchangeRateProvider provider;
@@ -30,8 +34,14 @@ public class ExchangeRatesService {
         }
 
         return repository.findByDate(date)
-                .map(this::toResponse)
-                .orElseGet(() -> fetchAndCache(date));
+                .map(snapshot -> {
+                    log.debug("Cache hit for date={}", date);
+                    return toResponse(snapshot);
+                })
+                .orElseGet(() -> {
+                    log.info("Cache miss for date={}, fetching from provider", date);
+                    return fetchAndCache(date);
+                });
     }
 
     private RatesResponse fetchAndCache(LocalDate date) {
@@ -47,8 +57,9 @@ public class ExchangeRatesService {
 
         try {
             repository.save(snapshot);
+            log.info("Cached rates for date={}", date);
         } catch (DataIntegrityViolationException e) {
-            // Another concurrent request already stored the same date — read it back
+            log.warn("Concurrent write conflict for date={}, re-reading from cache", date);
             return repository.findByDate(date)
                     .map(this::toResponse)
                     .orElseThrow(() -> new ProviderException("Concurrent write conflict for date: " + date, e));

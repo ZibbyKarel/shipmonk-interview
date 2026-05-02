@@ -7,6 +7,8 @@ import com.shipmonk.testingday.rates.provider.ExchangeRateProvider;
 import com.shipmonk.testingday.rates.provider.ExchangeRates;
 import com.shipmonk.testingday.rates.provider.fixer.dto.FixerRatesResponse;
 import io.github.resilience4j.retry.annotation.Retry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,8 @@ import java.util.Map;
 @Component
 public class FixerExchangeRateProvider implements ExchangeRateProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(FixerExchangeRateProvider.class);
+
     private static final String BASE_CURRENCY = "USD";
     private static final int FIXER_NO_RATES_FOR_DATE = 106;
 
@@ -44,6 +48,7 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
     @Override
     @Retry(name = "fixer")
     public ExchangeRates fetchRates(LocalDate date) {
+        log.info("Calling fixer.io for date={}", date);
         FixerRatesResponse response = callFixer(date);
 
         if (response == null) {
@@ -66,6 +71,7 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
 
         Map<String, BigDecimal> usdRates = rebaseToUsd(response.rates());
         long timestamp = response.timestamp() != null ? response.timestamp() : 0L;
+        log.info("Received rates from fixer.io for date={}, timestamp={}", date, timestamp);
         return new ExchangeRates(date, BASE_CURRENCY, timestamp, usdRates);
     }
 
@@ -80,14 +86,19 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
             return restTemplate.getForObject(url, FixerRatesResponse.class);
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
+                log.warn("fixer.io rate limited (429) for date={}", date);
                 throw new TransientProviderException("fixer.io rate limited (429): " + e.getMessage(), e);
             }
+            log.error("fixer.io client error {} for date={}", e.getStatusCode(), date);
             throw new ProviderException("fixer.io client error " + e.getStatusCode() + ": " + e.getMessage(), e);
         } catch (HttpServerErrorException e) {
+            log.warn("fixer.io server error {} for date={}", e.getStatusCode(), date);
             throw new TransientProviderException("fixer.io server error " + e.getStatusCode() + ": " + e.getMessage(), e);
         } catch (ResourceAccessException e) {
+            log.warn("fixer.io network error for date={}: {}", date, e.getMessage());
             throw new TransientProviderException("fixer.io network error: " + e.getMessage(), e);
         } catch (RestClientException e) {
+            log.error("Failed to reach fixer.io for date={}", date, e);
             throw new ProviderException("Failed to reach fixer.io: " + e.getMessage(), e);
         }
     }
