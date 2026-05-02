@@ -1,4 +1,4 @@
-package com.shipmonk.testingday.client.dto;
+package com.shipmonk.testingday.provider.fixer.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -22,11 +22,10 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse(404, ex.getMessage()));
     }
 
-    @ExceptionHandler(FixerApiException.class)
-    public ResponseEntity<ErrorResponse> handleFixerApi(FixerApiException ex) {
-        int code = ex.getFixerCode() != 0 ? ex.getFixerCode() : 502;
+    @ExceptionHandler(ProviderException.class)
+    public ResponseEntity<ErrorResponse> handleProvider(ProviderException ex) {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                .body(new ErrorResponse(code, ex.getMessage()));
+                .body(new ErrorResponse(502, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

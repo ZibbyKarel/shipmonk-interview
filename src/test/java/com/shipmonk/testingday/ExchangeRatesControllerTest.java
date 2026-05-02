@@ -2,9 +2,9 @@ package com.shipmonk.testingday;
 
 import com.shipmonk.testingday.controller.ExchangeRatesController;
 import com.shipmonk.testingday.dto.RatesResponse;
-import com.shipmonk.testingday.exception.FixerApiException;
 import com.shipmonk.testingday.exception.GlobalExceptionHandler;
 import com.shipmonk.testingday.exception.InvalidDateException;
+import com.shipmonk.testingday.exception.ProviderException;
 import com.shipmonk.testingday.exception.RatesNotFoundException;
 import com.shipmonk.testingday.service.ExchangeRatesService;
 import org.junit.jupiter.api.Test;
@@ -90,21 +90,21 @@ class ExchangeRatesControllerTest {
     }
 
     @Test
-    void fixerUpstreamError_returns502() throws Exception {
+    void providerError_returns502() throws Exception {
         when(exchangeRatesService.getRatesForDay(any()))
-                .thenThrow(new FixerApiException(104, "Your monthly API request volume has been reached."));
+                .thenThrow(new ProviderException("fixer.io returned error: Your monthly API request volume has been reached."));
 
         mockMvc.perform(get("/api/v1/rates/2022-06-20"))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.error.code").value(104))
+                .andExpect(jsonPath("$.error.code").value(502))
                 .andExpect(jsonPath("$.error.info").value(org.hamcrest.Matchers.containsString("monthly API request volume")));
     }
 
     @Test
-    void fixerNetworkError_returns502_withGenericCode() throws Exception {
+    void providerNetworkError_returns502() throws Exception {
         when(exchangeRatesService.getRatesForDay(any()))
-                .thenThrow(new FixerApiException("Failed to reach fixer.io: timeout", new RuntimeException("timeout")));
+                .thenThrow(new ProviderException("Failed to reach fixer.io: timeout", new RuntimeException("timeout")));
 
         mockMvc.perform(get("/api/v1/rates/2022-06-20"))
                 .andExpect(status().isBadGateway())

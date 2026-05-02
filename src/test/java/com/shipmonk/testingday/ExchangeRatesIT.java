@@ -5,17 +5,19 @@ import com.shipmonk.testingday.repository.ExchangeRateSnapshotRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -175,8 +178,9 @@ class ExchangeRatesIT {
     }
 
     @Test
-    void fixerCode104_quotaExceeded_returns502_withFixerCode() throws Exception {
+    void fixerCode104_quotaExceeded_returns502_doesNotRetry() throws Exception {
         LocalDate date = LocalDate.of(2022, 6, 20);
+        // Single expectation — code 104 is permanent, retry must NOT fire.
         expectFixerCall(date, """
                 {
                   "success": false,
@@ -187,16 +191,18 @@ class ExchangeRatesIT {
         mockMvc.perform(get("/api/v1/rates/2022-06-20"))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.error.code").value(104))
+                .andExpect(jsonPath("$.error.code").value(502))
                 .andExpect(jsonPath("$.error.info").value(containsString("monthly API request volume")));
 
+        mockServer.verify();
         assertThat(repository.findByDate(date)).isEmpty();
     }
 
     @Test
-    void fixerServerError_returns502_withGenericCode() throws Exception {
+    void fixerServerError_exhaustsRetries_returns502() throws Exception {
         LocalDate date = LocalDate.of(2022, 6, 20);
-        mockServer.expect(requestTo(fixerUrl(date)))
+        // 5xx is transient — retry fires up to max-attempts=3.
+        mockServer.expect(ExpectedCount.times(3), requestTo(fixerUrl(date)))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withServerError());
 
@@ -205,6 +211,67 @@ class ExchangeRatesIT {
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.error.code").value(502));
 
+        mockServer.verify();
+        assertThat(repository.findByDate(date)).isEmpty();
+    }
+
+    @Test
+    void transient429ThenSuccess_retriesAndReturns200() throws Exception {
+        LocalDate date = LocalDate.of(2022, 6, 20);
+        // First attempt: rate-limited. Second attempt: success.
+        mockServer.expect(ExpectedCount.once(), requestTo(fixerUrl(date)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.TOO_MANY_REQUESTS));
+        mockServer.expect(ExpectedCount.once(), requestTo(fixerUrl(date)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("""
+                        {
+                          "success": true,
+                          "historical": true,
+                          "date": "2022-06-20",
+                          "timestamp": 1655769599,
+                          "base": "EUR",
+                          "rates": { "USD": 1.05, "GBP": 0.85 }
+                        }
+                        """, MediaType.APPLICATION_JSON));
+
+        mockMvc.perform(get("/api/v1/rates/2022-06-20"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.base").value("USD"))
+                .andExpect(jsonPath("$.rates.USD").value(1));
+
+        mockServer.verify();
+        assertThat(repository.findByDate(date)).isPresent();
+    }
+
+    @Test
+    void transient429OnEveryAttempt_exhaustsRetriesAndReturns502() throws Exception {
+        LocalDate date = LocalDate.of(2022, 6, 20);
+        mockServer.expect(ExpectedCount.times(3), requestTo(fixerUrl(date)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.TOO_MANY_REQUESTS));
+
+        mockMvc.perform(get("/api/v1/rates/2022-06-20"))
+                .andExpect(status().isBadGateway())
+                .andExpect(jsonPath("$.error.code").value(502));
+
+        mockServer.verify();
+        assertThat(repository.findByDate(date)).isEmpty();
+    }
+
+    @Test
+    void permanent400_doesNotRetry_returns502() throws Exception {
+        LocalDate date = LocalDate.of(2022, 6, 20);
+        // Single expectation — 4xx (other than 429) is permanent, retry must NOT fire.
+        mockServer.expect(ExpectedCount.once(), requestTo(fixerUrl(date)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.BAD_REQUEST));
+
+        mockMvc.perform(get("/api/v1/rates/2022-06-20"))
+                .andExpect(status().isBadGateway())
+                .andExpect(jsonPath("$.error.code").value(502));
+
+        mockServer.verify();
         assertThat(repository.findByDate(date)).isEmpty();
     }
 

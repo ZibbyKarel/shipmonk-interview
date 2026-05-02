@@ -1,11 +1,11 @@
 package com.shipmonk.testingday;
 
-import com.shipmonk.testingday.client.FixerClient;
-import com.shipmonk.testingday.client.dto.FixerRatesResponse;
 import com.shipmonk.testingday.dto.RatesResponse;
 import com.shipmonk.testingday.entity.ExchangeRateSnapshot;
-import com.shipmonk.testingday.exception.FixerApiException;
 import com.shipmonk.testingday.exception.InvalidDateException;
+import com.shipmonk.testingday.exception.ProviderException;
+import com.shipmonk.testingday.provider.ExchangeRateProvider;
+import com.shipmonk.testingday.provider.ExchangeRates;
 import com.shipmonk.testingday.repository.ExchangeRateSnapshotRepository;
 import com.shipmonk.testingday.service.ExchangeRatesService;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,13 +34,13 @@ class ExchangeRatesServiceTest {
     private ExchangeRateSnapshotRepository repository;
 
     @Mock
-    private FixerClient fixerClient;
+    private ExchangeRateProvider provider;
 
     @InjectMocks
     private ExchangeRatesService service;
 
     @Test
-    void cacheHit_returnsFromDb_withoutCallingFixer() {
+    void cacheHit_returnsFromDb_withoutCallingProvider() {
         LocalDate date = LocalDate.of(2022, 6, 20);
         Map<String, BigDecimal> cachedRates = Map.of(
                 "USD", BigDecimal.ONE,
@@ -61,33 +60,27 @@ class ExchangeRatesServiceTest {
         assertThat(response.getDate()).isEqualTo("2022-06-20");
         assertThat(response.getTimestamp()).isEqualTo(1655769599L);
         assertThat(response.getRates()).containsExactlyInAnyOrderEntriesOf(cachedRates);
-        verifyNoInteractions(fixerClient);
+        verifyNoInteractions(provider);
         verify(repository, never()).save(any());
     }
 
     @Test
-    void cacheMiss_fetchesFromFixer_rebasesEurToUsd_andPersists() {
+    void cacheMiss_fetchesFromProvider_persistsAndReturns() {
         LocalDate date = LocalDate.of(2022, 6, 20);
+        Map<String, BigDecimal> usdRates = Map.of(
+                "USD", BigDecimal.ONE,
+                "GBP", new BigDecimal("0.809524"),
+                "JPY", new BigDecimal("133.333333")
+        );
         when(repository.findByDate(date)).thenReturn(Optional.empty());
-
-        // Fixer returns EUR-based rates: USD=1.05, GBP=0.85, JPY=140.0
-        FixerRatesResponse fixerResponse = newFixerResponse(date, 1655769599L, Map.of(
-                "USD", new BigDecimal("1.05"),
-                "GBP", new BigDecimal("0.85"),
-                "JPY", new BigDecimal("140.0")
-        ));
-        when(fixerClient.fetchHistoricalRates(date)).thenReturn(fixerResponse);
+        when(provider.fetchRates(date)).thenReturn(new ExchangeRates(date, "USD", 1655769599L, usdRates));
         when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         RatesResponse response = service.getRatesForDay(date);
 
         assertThat(response.getBase()).isEqualTo("USD");
-        // USD/USD = 1.0
-        assertThat(response.getRates().get("USD")).isEqualByComparingTo(BigDecimal.ONE);
-        // GBP_USD = 0.85 / 1.05 → 0.809524 (HALF_UP, scale 6)
-        assertThat(response.getRates().get("GBP")).isEqualByComparingTo(new BigDecimal("0.809524"));
-        // JPY_USD = 140.0 / 1.05 → 133.333333 (HALF_UP, scale 6)
-        assertThat(response.getRates().get("JPY")).isEqualByComparingTo(new BigDecimal("133.333333"));
+        assertThat(response.getTimestamp()).isEqualTo(1655769599L);
+        assertThat(response.getRates()).containsExactlyInAnyOrderEntriesOf(usdRates);
 
         ArgumentCaptor<ExchangeRateSnapshot> captor = ArgumentCaptor.forClass(ExchangeRateSnapshot.class);
         verify(repository).save(captor.capture());
@@ -95,11 +88,11 @@ class ExchangeRatesServiceTest {
         assertThat(saved.getDate()).isEqualTo(date);
         assertThat(saved.getBase()).isEqualTo("USD");
         assertThat(saved.getTimestamp()).isEqualTo(1655769599L);
-        assertThat(saved.getRates().get("USD")).isEqualByComparingTo(BigDecimal.ONE);
+        assertThat(saved.getRates()).containsExactlyInAnyOrderEntriesOf(usdRates);
     }
 
     @Test
-    void futureDate_throwsInvalidDateException_withoutHittingDbOrFixer() {
+    void futureDate_throwsInvalidDateException_withoutHittingDbOrProvider() {
         LocalDate futureDate = LocalDate.now().plusDays(1);
 
         assertThatThrownBy(() -> service.getRatesForDay(futureDate))
@@ -107,25 +100,7 @@ class ExchangeRatesServiceTest {
                 .hasMessageContaining("future");
 
         verifyNoInteractions(repository);
-        verifyNoInteractions(fixerClient);
-    }
-
-    @Test
-    void usdMissingFromFixerResponse_throwsFixerApiException() {
-        LocalDate date = LocalDate.of(2022, 6, 20);
-        when(repository.findByDate(date)).thenReturn(Optional.empty());
-
-        // No USD in rates - rebasing must fail cleanly
-        FixerRatesResponse fixerResponse = newFixerResponse(date, 1L, Map.of(
-                "GBP", new BigDecimal("0.85")
-        ));
-        when(fixerClient.fetchHistoricalRates(date)).thenReturn(fixerResponse);
-
-        assertThatThrownBy(() -> service.getRatesForDay(date))
-                .isInstanceOf(FixerApiException.class)
-                .hasMessageContaining("USD rate missing");
-
-        verify(repository, never()).save(any());
+        verifyNoInteractions(provider);
     }
 
     @Test
@@ -145,11 +120,9 @@ class ExchangeRatesServiceTest {
                 .thenReturn(Optional.empty())
                 .thenReturn(Optional.of(writtenByOther));
 
-        FixerRatesResponse fixerResponse = newFixerResponse(date, 1L, Map.of(
-                "USD", new BigDecimal("1.0"),
-                "EUR", new BigDecimal("0.95")
+        when(provider.fetchRates(date)).thenReturn(new ExchangeRates(
+                date, "USD", 1L, Map.of("USD", BigDecimal.ONE, "EUR", new BigDecimal("0.95"))
         ));
-        when(fixerClient.fetchHistoricalRates(date)).thenReturn(fixerResponse);
         when(repository.save(any())).thenThrow(new DataIntegrityViolationException("dup"));
 
         RatesResponse response = service.getRatesForDay(date);
@@ -159,15 +132,18 @@ class ExchangeRatesServiceTest {
         verify(repository, times(2)).findByDate(date);
     }
 
-    private FixerRatesResponse newFixerResponse(LocalDate date, long timestamp,
-                                                Map<String, BigDecimal> eurBasedRates) {
-        FixerRatesResponse r = new FixerRatesResponse();
-        r.setSuccess(true);
-        r.setHistorical(true);
-        r.setDate(date.toString());
-        r.setTimestamp(timestamp);
-        r.setBase("EUR");
-        r.setRates(new HashMap<>(eurBasedRates));
-        return r;
+    @Test
+    void concurrentWrite_butSecondLookupAlsoEmpty_throwsProviderException() {
+        LocalDate date = LocalDate.of(2022, 6, 20);
+
+        when(repository.findByDate(date)).thenReturn(Optional.empty());
+        when(provider.fetchRates(date)).thenReturn(new ExchangeRates(
+                date, "USD", 1L, Map.of("USD", BigDecimal.ONE)
+        ));
+        when(repository.save(any())).thenThrow(new DataIntegrityViolationException("dup"));
+
+        assertThatThrownBy(() -> service.getRatesForDay(date))
+                .isInstanceOf(ProviderException.class)
+                .hasMessageContaining("Concurrent write conflict");
     }
 }
