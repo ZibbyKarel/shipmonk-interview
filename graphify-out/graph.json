@@ -4185,8 +4185,8 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L53",
       "weight": 1.0,
-      "_src": "errorresponse_issuccess",
-      "_tgt": "fixerexchangerateprovider_fixerexchangerateprovider_fetchrates",
+      "_src": "fixerexchangerateprovider_fixerexchangerateprovider_fetchrates",
+      "_tgt": "errorresponse_issuccess",
       "source": "fixerexchangerateprovider_fixerexchangerateprovider_fetchrates",
       "target": "errorresponse_issuccess"
     },

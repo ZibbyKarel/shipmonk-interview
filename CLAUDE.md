@@ -9,6 +9,9 @@ Exchange rates caching service built as an interview task for ShipMonk. It acts 
 ## Commands
 
 ```bash
+# Start everything in docker
+docker compose up --build
+
 # Start the local database
 docker-compose up -d database
 
@@ -44,6 +47,7 @@ Spring Boot 2.7 / Java 17 / Maven project. Entry point: `TestingdayExchangeRates
 The single implemented endpoint is `GET /api/v1/rates/{day}` in `ExchangeRatesController`. The response shape should mirror the fixer.io historical rates API.
 
 Expected layers to build:
+
 - **Controller** (`ExchangeRatesController`) — parses the `{day}` path variable (format `YYYY-MM-DD`) and delegates to a service.
 - **Service** — checks PostgreSQL cache first; on cache miss, calls fixer.io and persists the result.
 - **Repository** — Hibernate/JPA entity + repository for cached daily rates.
@@ -52,6 +56,7 @@ Expected layers to build:
 ## Database
 
 PostgreSQL 14 runs via Docker Compose. Connection details in `application.properties`:
+
 - URL: `jdbc:postgresql://127.0.0.1:5432/shipmonk-exchange-rates`
 - User/password: `shipmonk` / `secret`
 
@@ -69,6 +74,7 @@ The assignment calls for Hibernate — use `spring-boot-starter-data-jpa` and de
 This project has a graphify knowledge graph at graphify-out/.
 
 Rules:
+
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)

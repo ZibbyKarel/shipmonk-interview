@@ -12,3 +12,19 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     command: postgres -c random_page_cost=1.0
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shipmonk -d shipmonk-exchange-rates"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - DB_HOST=database
+      - FIXER_API_KEY=${FIXER_API_KEY:-ec4cadf1d3bcf4807427b6a5e570ed4d}
+    ports:
+      - "127.0.0.1:8080:8080"
