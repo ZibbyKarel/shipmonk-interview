@@ -39,9 +39,9 @@ public class ExchangeRatesService {
 
         ExchangeRateSnapshot snapshot = new ExchangeRateSnapshot(
                 date,
-                rates.getBase(),
-                rates.getTimestamp(),
-                rates.getRates(),
+                rates.base(),
+                rates.timestamp(),
+                rates.rates(),
                 LocalDateTime.now()
         );
 

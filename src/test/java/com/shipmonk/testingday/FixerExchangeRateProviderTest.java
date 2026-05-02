@@ -64,15 +64,15 @@ class FixerExchangeRateProviderTest {
 
         ExchangeRates rates = provider.fetchRates(date);
 
-        assertThat(rates.getDate()).isEqualTo(date);
-        assertThat(rates.getBase()).isEqualTo("USD");
-        assertThat(rates.getTimestamp()).isEqualTo(1655769599L);
+        assertThat(rates.date()).isEqualTo(date);
+        assertThat(rates.base()).isEqualTo("USD");
+        assertThat(rates.timestamp()).isEqualTo(1655769599L);
         // USD/USD = 1.0
-        assertThat(rates.getRates().get("USD")).isEqualByComparingTo(BigDecimal.ONE);
+        assertThat(rates.rates().get("USD")).isEqualByComparingTo(BigDecimal.ONE);
         // GBP_USD = 0.85 / 1.05 → 0.809524 (HALF_UP, scale 6)
-        assertThat(rates.getRates().get("GBP")).isEqualByComparingTo(new BigDecimal("0.809524"));
+        assertThat(rates.rates().get("GBP")).isEqualByComparingTo(new BigDecimal("0.809524"));
         // JPY_USD = 140.0 / 1.05 → 133.333333 (HALF_UP, scale 6)
-        assertThat(rates.getRates().get("JPY")).isEqualByComparingTo(new BigDecimal("133.333333"));
+        assertThat(rates.rates().get("JPY")).isEqualByComparingTo(new BigDecimal("133.333333"));
         server.verify();
     }
 

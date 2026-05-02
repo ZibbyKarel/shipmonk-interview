@@ -50,9 +50,9 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
             throw new ProviderException("Empty response from fixer.io");
         }
 
-        if (!response.isSuccess()) {
-            int code = response.getError() != null ? response.getError().getCode() : 0;
-            String info = response.getError() != null ? response.getError().getInfo() : "Unknown error";
+        if (!response.success()) {
+            int code = response.error() != null ? response.error().code() : 0;
+            String info = response.error() != null ? response.error().info() : "Unknown error";
 
             if (code == FIXER_NO_RATES_FOR_DATE) {
                 throw new RatesNotFoundException("No exchange rates available for date: " + date);
@@ -60,12 +60,12 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
             throw new ProviderException("fixer.io returned error: " + info);
         }
 
-        if (response.getRates() == null || response.getRates().isEmpty()) {
+        if (response.rates() == null || response.rates().isEmpty()) {
             throw new RatesNotFoundException("No exchange rates available for date: " + date);
         }
 
-        Map<String, BigDecimal> usdRates = rebaseToUsd(response.getRates());
-        long timestamp = response.getTimestamp() != null ? response.getTimestamp() : 0L;
+        Map<String, BigDecimal> usdRates = rebaseToUsd(response.rates());
+        long timestamp = response.timestamp() != null ? response.timestamp() : 0L;
         return new ExchangeRates(date, BASE_CURRENCY, timestamp, usdRates);
     }
 

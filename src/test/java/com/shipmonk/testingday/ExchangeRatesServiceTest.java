@@ -56,10 +56,10 @@ class ExchangeRatesServiceTest {
 
         assertThat(response.isSuccess()).isTrue();
         assertThat(response.isHistorical()).isTrue();
-        assertThat(response.getBase()).isEqualTo("USD");
-        assertThat(response.getDate()).isEqualTo("2022-06-20");
-        assertThat(response.getTimestamp()).isEqualTo(1655769599L);
-        assertThat(response.getRates()).containsExactlyInAnyOrderEntriesOf(cachedRates);
+        assertThat(response.base()).isEqualTo("USD");
+        assertThat(response.date()).isEqualTo("2022-06-20");
+        assertThat(response.timestamp()).isEqualTo(1655769599L);
+        assertThat(response.rates()).containsExactlyInAnyOrderEntriesOf(cachedRates);
         verifyNoInteractions(provider);
         verify(repository, never()).save(any());
     }
@@ -78,9 +78,9 @@ class ExchangeRatesServiceTest {
 
         RatesResponse response = service.getRatesForDay(date);
 
-        assertThat(response.getBase()).isEqualTo("USD");
-        assertThat(response.getTimestamp()).isEqualTo(1655769599L);
-        assertThat(response.getRates()).containsExactlyInAnyOrderEntriesOf(usdRates);
+        assertThat(response.base()).isEqualTo("USD");
+        assertThat(response.timestamp()).isEqualTo(1655769599L);
+        assertThat(response.rates()).containsExactlyInAnyOrderEntriesOf(usdRates);
 
         ArgumentCaptor<ExchangeRateSnapshot> captor = ArgumentCaptor.forClass(ExchangeRateSnapshot.class);
         verify(repository).save(captor.capture());
@@ -127,8 +127,8 @@ class ExchangeRatesServiceTest {
 
         RatesResponse response = service.getRatesForDay(date);
 
-        assertThat(response.getTimestamp()).isEqualTo(999L);
-        assertThat(response.getRates().get("EUR")).isEqualByComparingTo(new BigDecimal("0.95"));
+        assertThat(response.timestamp()).isEqualTo(999L);
+        assertThat(response.rates().get("EUR")).isEqualByComparingTo(new BigDecimal("0.95"));
         verify(repository, times(2)).findByDate(date);
     }
 
