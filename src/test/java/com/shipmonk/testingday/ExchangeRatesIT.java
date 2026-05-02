@@ -39,6 +39,8 @@ import org.springframework.web.client.RestTemplate;
 import com.shipmonk.testingday.modules.rates.entity.ExchangeRateSnapshot;
 import com.shipmonk.testingday.modules.rates.repository.ExchangeRateSnapshotRepository;
 
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class ExchangeRatesIT {
@@ -52,11 +54,16 @@ class ExchangeRatesIT {
   @Autowired
   private ExchangeRateSnapshotRepository repository;
 
+  @Autowired
+  private CircuitBreakerRegistry circuitBreakerRegistry;
+
   private MockRestServiceServer mockServer;
 
   @BeforeEach
   void setup() {
     mockServer = MockRestServiceServer.createServer(restTemplate);
+    // Reset breaker so prior test failures don't leak into the next test.
+    circuitBreakerRegistry.circuitBreaker("fixer").reset();
   }
 
   @AfterEach
@@ -258,6 +265,53 @@ class ExchangeRatesIT {
 
     mockServer.verify();
     assertThat(repository.findByDate(date)).isEmpty();
+  }
+
+  @Test
+  void breakerOpen_uncachedDate_returns503_withRetryAfter() throws Exception {
+    // Forcing the breaker OPEN directly keeps the assertion focused on the
+    // CallNotPermittedException → 503 mapping. The exact threshold-trip
+    // semantics (sliding window, minimum calls, aspect ordering) are
+    // configuration concerns better verified manually against a real outage.
+    circuitBreakerRegistry.circuitBreaker("fixer").transitionToOpenState();
+
+    LocalDate rejectedDate = LocalDate.of(2024, 3, 4);
+    // No fixer expectation — any outbound call would fail mockServer.verify().
+    mockMvc.perform(get("/api/v1/rates/" + rejectedDate))
+        .andExpect(status().isServiceUnavailable())
+        .andExpect(MockMvcResultMatchers.header().string("Retry-After", "30"))
+        .andExpect(jsonPath("$.success").value(false))
+        .andExpect(jsonPath("$.error.code").value(503))
+        .andExpect(jsonPath("$.error.info").value(containsString("temporarily unavailable")));
+
+    mockServer.verify();
+    assertThat(repository.findByDate(rejectedDate)).isEmpty();
+  }
+
+  @Test
+  void breakerOpen_doesNotBlockCachedDates() throws Exception {
+    // Cache hits never enter the breaker — even when OPEN, previously-cached
+    // dates must keep serving 200 from the DB.
+    LocalDate cachedDate = LocalDate.of(2024, 4, 1);
+    expectFixerCall(cachedDate, """
+        {
+          "success": true,
+          "historical": true,
+          "date": "2024-04-01",
+          "timestamp": 1711929599,
+          "base": "EUR",
+          "rates": { "USD": 1.05, "GBP": 0.85 }
+        }
+        """);
+    mockMvc.perform(get("/api/v1/rates/" + cachedDate)).andExpect(status().isOk());
+
+    circuitBreakerRegistry.circuitBreaker("fixer").transitionToOpenState();
+
+    // No fixer expectation — cache hit must not call the provider.
+    mockMvc.perform(get("/api/v1/rates/" + cachedDate)).andExpect(status().isOk())
+        .andExpect(jsonPath("$.base").value("USD"));
+
+    mockServer.verify();
   }
 
   private void expectFixerCall(LocalDate date, String responseBodyJson) {
