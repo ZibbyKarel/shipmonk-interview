@@ -18,13 +18,22 @@ docker-compose up -d database
 # Run the application
 ./mvnw spring-boot:run
 
-# Run all tests
+# Run unit tests only (Surefire, *Test.java)
 ./mvnw test
 
-# Run a single test class
+# Run unit + integration tests (Failsafe, *IT.java)
+./mvnw verify
+
+# Run only integration tests (assumes unit tests already passed in this build)
+./mvnw failsafe:integration-test
+
+# Run a single unit test class
 ./mvnw test -Dtest=ExchangeRatesControllerTest
 
-# Example API calls
+# Run a single integration test class
+./mvnw verify -Dit.test=ExchangeRatesIT -DfailIfNoTests=false
+
+# Example API calls (smoke test against running app)
 bash test.sh
 ```
 
