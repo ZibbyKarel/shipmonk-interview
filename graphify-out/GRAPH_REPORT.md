@@ -1,7 +1,7 @@
 # Graph Report - /Users/zibby/Workspace/shipmonk-interview  (2026-05-02)
 
 ## Corpus Check
-- 27 files · ~26,709 words
+- 27 files · ~27,363 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary

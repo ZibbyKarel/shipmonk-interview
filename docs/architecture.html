@@ -94,6 +94,7 @@ graph TD
     ERRDTO["ErrorResponse\n&lt;&lt;record&gt;&gt;"]
     APPCFG["AppConfig\n@Configuration"]
     RT["RestTemplate"]
+    TF["TraceIdFilter\nOncePerRequestFilter"]
   end
 
   subgraph SVC["&nbsp; Service Layer &nbsp;"]
@@ -127,7 +128,9 @@ graph TD
     INVDATE["InvalidDateException\n→ 400"]
   end
 
-  HTTP -->|"GET /api/v1/rates/{day}"| CTRL
+  HTTP -->|"GET /api/v1/rates/{day}"| TF
+  TF -->|"X-Trace-Id → MDC"| CTRL
+  TF -.->|"traceId interceptor"| RT
   CTRL --> SERVICE
   CTRL -->|"throws"| INVDATE
   SERVICE -->|"getRatesForDay()"| IFACE
@@ -142,6 +145,7 @@ graph TD
   FIXER -->|"throws"| TRANSIENT
   FIXER -->|"throws"| NOTFOUND
   APPCFG -->|"@Bean"| RT
+  APPCFG -->|"@Bean"| TF
   REPO -->|"findByDate / save"| ENTITY
   ENTITY -->|"@Convert"| CONV
   ENTITY --> DB
@@ -162,6 +166,7 @@ graph TD
   style DTO fill:#1a2535,stroke:#334155
   style EX fill:#1a2535,stroke:#334155
 
+  style TF fill:#1a2535,stroke:#334155,color:#e2e8f0
   style HTTP fill:#0f172a,stroke:#64748b,color:#94a3b8
   style DB fill:#134e4a,stroke:#0d9488,color:#a7f3d0
   style IFACE fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
@@ -197,6 +202,7 @@ sequenceDiagram
   participant API as fixer.io API
 
   C->>CT: GET /api/v1/rates/{day}
+  Note over CT: TraceIdFilter: reads/generates X-Trace-Id,<br/>sets MDC traceId, propagates to response header
 
   alt invalid date format (DateTimeParseException)
     CT->>GE: InvalidDateException
