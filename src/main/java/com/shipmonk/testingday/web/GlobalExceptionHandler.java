@@ -1,8 +1,5 @@
 package com.shipmonk.testingday.web;
 
-import com.shipmonk.testingday.rates.exception.InvalidDateException;
-import com.shipmonk.testingday.rates.exception.ProviderException;
-import com.shipmonk.testingday.rates.exception.RatesNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -10,6 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import com.shipmonk.testingday.modules.rates.exception.InvalidDateException;
+import com.shipmonk.testingday.modules.rates.exception.ProviderException;
+import com.shipmonk.testingday.modules.rates.exception.RatesNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

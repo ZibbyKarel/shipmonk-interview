@@ -72,6 +72,7 @@
 
 <h1>Exchange Rates Service</h1>
 <p class="subtitle">Component dependencies &amp; request-path flow &mdash; ShipMonk interview project</p>
+<p class="subtitle" style="margin-top:-1.8rem; font-size:0.78rem; color:#475569;">Package layout: <code>config/</code> · <code>web/</code> (cross-cutting) · <code>modules/rates/</code> (domain) · <code>modules/rates/provider/fixer/</code></p>
 
 <!-- ─── 1. Component / Dependency Map ─────────────────────────────────────── -->
 <div class="section">
@@ -126,6 +127,8 @@ graph TD
     TRANSIENT["TransientProviderException\n(retryable)"]
     NOTFOUND["RatesNotFoundException\n→ 404"]
     INVDATE["InvalidDateException\n→ 400"]
+    MATME["MethodArgumentType\nMismatchException\n(Spring MVC) → 400"]
+    GENERIC["Exception\n(catch-all) → 500"]
   end
 
   HTTP -->|"GET /api/v1/rates/{day}"| TF
@@ -144,13 +147,15 @@ graph TD
   FIXER -->|"throws"| PROVEX
   FIXER -->|"throws"| TRANSIENT
   FIXER -->|"throws"| NOTFOUND
-  APPCFG -->|"@Bean"| RT
-  APPCFG -->|"@Bean"| TF
+  APPCFG -->|"@Bean + traceId interceptor"| RT
+  APPCFG -->|"FilterRegistrationBean\nHIGHEST_PRECEDENCE"| TF
   REPO -->|"findByDate / save"| ENTITY
   ENTITY -->|"@Convert"| CONV
   ENTITY --> DB
   REPO --> DB
   GEH -->|"handles"| BASE
+  GEH -->|"handles (→ 400)"| MATME
+  GEH -->|"catch-all (→ 500)"| GENERIC
   GEH -->|"returns"| ERRDTO
   BASE --> PROVEX
   PROVEX --> TRANSIENT
@@ -207,10 +212,16 @@ sequenceDiagram
   alt invalid date format (DateTimeParseException)
     CT->>GE: InvalidDateException
     GE-->>C: 400 Bad Request
+  else Spring type-mismatch on path variable
+    CT->>GE: MethodArgumentTypeMismatchException
+    GE-->>C: 400 Bad Request
   else future date
     CT->>SV: getRatesForDay(date)
     SV->>GE: InvalidDateException
     GE-->>C: 400 Bad Request
+  else unhandled / unexpected exception
+    CT->>GE: Exception (any uncaught)
+    GE-->>C: 500 Internal Server Error
   else valid historical date
     CT->>SV: getRatesForDay(date)
 
@@ -267,7 +278,7 @@ sequenceDiagram
   end
     </div>
     <div class="legend">
-      <span class="legend-item">The sequence shows three branches: bad input (400), cache hit (200 fast path), and cache miss with fixer.io fetch + retry + concurrent-write guard.</span>
+      <span class="legend-item">The sequence shows five entry branches: bad date format (400), Spring type-mismatch (400), future date (400), unhandled exception (500), and valid historical date — which splits into cache hit (200 fast) and cache miss with fixer.io fetch + retry + concurrent-write guard.</span>
     </div>
   </div>
 </div>
