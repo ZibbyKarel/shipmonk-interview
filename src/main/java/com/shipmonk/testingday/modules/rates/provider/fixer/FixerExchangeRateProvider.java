@@ -25,6 +25,7 @@ import com.shipmonk.testingday.modules.rates.provider.ExchangeRateProvider;
 import com.shipmonk.testingday.modules.rates.provider.ExchangeRates;
 import com.shipmonk.testingday.modules.rates.provider.fixer.dto.FixerRatesResponse;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @Component
@@ -47,6 +48,7 @@ public class FixerExchangeRateProvider implements ExchangeRateProvider {
   }
 
   @Override
+  @CircuitBreaker(name = "fixer")
   @Retry(name = "fixer")
   public ExchangeRates fetchRates(LocalDate date) {
     log.info("Calling fixer.io for date={}", date);

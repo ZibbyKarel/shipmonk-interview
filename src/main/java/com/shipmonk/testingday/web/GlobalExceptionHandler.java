@@ -2,6 +2,7 @@ package com.shipmonk.testingday.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +12,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import com.shipmonk.testingday.modules.rates.exception.InvalidDateException;
 import com.shipmonk.testingday.modules.rates.exception.ProviderException;
 import com.shipmonk.testingday.modules.rates.exception.RatesNotFoundException;
+
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,6 +38,14 @@ public class GlobalExceptionHandler {
     log.error("Provider error — upstream fixer.io call failed", ex);
     return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
         .body(new ErrorResponse(502, ex.getMessage()));
+  }
+
+  @ExceptionHandler(CallNotPermittedException.class)
+  public ResponseEntity<ErrorResponse> handleCircuitOpen(CallNotPermittedException ex) {
+    log.warn("Circuit breaker OPEN — fixer.io call rejected: {}", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+        .header(HttpHeaders.RETRY_AFTER, "30")
+        .body(new ErrorResponse(503, "Upstream rate provider temporarily unavailable"));
   }
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
