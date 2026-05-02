@@ -5,7 +5,7 @@ import com.shipmonk.testingday.rates.exception.InvalidDateException;
 import com.shipmonk.testingday.rates.exception.ProviderException;
 import com.shipmonk.testingday.rates.exception.RatesNotFoundException;
 import com.shipmonk.testingday.rates.service.ExchangeRatesService;
-import com.shipmonk.testingday.shared.GlobalExceptionHandler;
+import com.shipmonk.testingday.web.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

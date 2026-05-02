@@ -1,4 +1,4 @@
-package com.shipmonk.testingday.shared;
+package com.shipmonk.testingday.web;
 
 public record ErrorResponse(ErrorDetail error) {
 

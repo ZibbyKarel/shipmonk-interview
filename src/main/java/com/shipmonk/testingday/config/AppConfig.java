@@ -1,5 +1,6 @@
-package com.shipmonk.testingday.shared;
+package com.shipmonk.testingday.config;
 
+import com.shipmonk.testingday.web.filter.TraceIdFilter;
 import org.slf4j.MDC;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

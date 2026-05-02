@@ -1,4 +1,4 @@
-package com.shipmonk.testingday.shared;
+package com.shipmonk.testingday.web;
 
 import com.shipmonk.testingday.rates.exception.InvalidDateException;
 import com.shipmonk.testingday.rates.exception.ProviderException;

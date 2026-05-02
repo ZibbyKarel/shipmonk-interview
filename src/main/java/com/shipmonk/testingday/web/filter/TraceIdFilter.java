@@ -1,4 +1,4 @@
-package com.shipmonk.testingday.shared;
+package com.shipmonk.testingday.web.filter;
 
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class TraceIdFilter extends OncePerRequestFilter {
 
-    static final String TRACE_HEADER = "X-Trace-Id";
-    static final String MDC_KEY = "traceId";
+    public static final String TRACE_HEADER = "X-Trace-Id";
+    public static final String MDC_KEY = "traceId";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

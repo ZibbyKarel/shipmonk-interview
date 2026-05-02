@@ -200,7 +200,7 @@
       "author": null,
       "contributor": null,
       "id": "testingdayexchangeratesapplicationtests",
-      "community": 25,
+      "community": 26,
       "norm_label": "testingdayexchangeratesapplicationtests"
     },
     {
@@ -213,7 +213,7 @@
       "author": null,
       "contributor": null,
       "id": "testingdayexchangeratesapplicationtests_contextloads",
-      "community": 26,
+      "community": 27,
       "norm_label": "testingdayexchangeratesapplicationtests.contextloads"
     },
     {
@@ -228,8 +228,8 @@
     {
       "label": "RatesMapConverterTest",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L15",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L16",
       "id": "ratesmapconvertertest_ratesmapconvertertest",
       "community": 5,
       "norm_label": "ratesmapconvertertest"
@@ -237,8 +237,8 @@
     {
       "label": ".setup()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L19",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L20",
       "id": "ratesmapconvertertest_ratesmapconvertertest_setup",
       "community": 5,
       "norm_label": ".setup()"
@@ -246,8 +246,8 @@
     {
       "label": ".convertToDatabaseColumn_serializesMapToJsonString()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L24",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L25",
       "id": "ratesmapconvertertest_ratesmapconvertertest_converttodatabasecolumn_serializesmaptojsonstring",
       "community": 5,
       "norm_label": ".converttodatabasecolumn_serializesmaptojsonstring()"
@@ -255,8 +255,8 @@
     {
       "label": ".convertToEntityAttribute_deserializesJsonStringToMap()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L39",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L40",
       "id": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_deserializesjsonstringtomap",
       "community": 5,
       "norm_label": ".converttoentityattribute_deserializesjsonstringtomap()"
@@ -264,8 +264,8 @@
     {
       "label": ".roundtrip_preservesBigDecimalPrecision()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L51",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L52",
       "id": "ratesmapconvertertest_ratesmapconvertertest_roundtrip_preservesbigdecimalprecision",
       "community": 5,
       "norm_label": ".roundtrip_preservesbigdecimalprecision()"
@@ -273,8 +273,8 @@
     {
       "label": ".convertToDatabaseColumn_emptyMap_returnsEmptyJsonObject()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L67",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L68",
       "id": "ratesmapconvertertest_ratesmapconvertertest_converttodatabasecolumn_emptymap_returnsemptyjsonobject",
       "community": 5,
       "norm_label": ".converttodatabasecolumn_emptymap_returnsemptyjsonobject()"
@@ -282,8 +282,8 @@
     {
       "label": ".convertToEntityAttribute_emptyJsonObject_returnsEmptyMap()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L74",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L75",
       "id": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_emptyjsonobject_returnsemptymap",
       "community": 5,
       "norm_label": ".converttoentityattribute_emptyjsonobject_returnsemptymap()"
@@ -291,8 +291,8 @@
     {
       "label": ".convertToEntityAttribute_malformedJson_throwsIllegalStateException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L81",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L82",
       "id": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_malformedjson_throwsillegalstateexception",
       "community": 5,
       "norm_label": ".converttoentityattribute_malformedjson_throwsillegalstateexception()"
@@ -303,32 +303,32 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_provider_fixer_fixerexchangerateprovidertest_java",
-      "community": 3,
+      "community": 2,
       "norm_label": "fixerexchangerateprovidertest.java"
     },
     {
       "label": "FixerExchangeRateProviderTest",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L26",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L27",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
-      "community": 3,
+      "community": 2,
       "norm_label": "fixerexchangerateprovidertest"
     },
     {
       "label": ".setup()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L35",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L36",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_setup",
-      "community": 3,
+      "community": 2,
       "norm_label": ".setup()"
     },
     {
       "label": ".successResponse_rebasesEurToUsd_andReturnsExchangeRates()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L42",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L43",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_successresponse_rebaseseurtousd_andreturnsexchangerates",
       "community": 0,
       "norm_label": ".successresponse_rebaseseurtousd_andreturnsexchangerates()"
@@ -336,64 +336,64 @@
     {
       "label": ".fixerCode106_throwsRatesNotFoundException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L78",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L79",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_fixercode106_throwsratesnotfoundexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".fixercode106_throwsratesnotfoundexception()"
     },
     {
       "label": ".fixerCode104_quotaReached_throwsPermanentProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L96",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L97",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_fixercode104_quotareached_throwspermanentproviderexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".fixercode104_quotareached_throwspermanentproviderexception()"
     },
     {
       "label": ".emptyRatesMap_throwsRatesNotFoundException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L115",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L116",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_emptyratesmap_throwsratesnotfoundexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".emptyratesmap_throwsratesnotfoundexception()"
     },
     {
       "label": ".usdMissingFromRates_throwsPermanentProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L136",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L137",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_usdmissingfromrates_throwspermanentproviderexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".usdmissingfromrates_throwspermanentproviderexception()"
     },
     {
       "label": ".httpServerError_throwsTransientProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L159",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L160",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpservererror_throwstransientproviderexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".httpservererror_throwstransientproviderexception()"
     },
     {
       "label": ".httpClientError429_throwsTransientProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L171",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L172",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpclienterror429_throwstransientproviderexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".httpclienterror429_throwstransientproviderexception()"
     },
     {
       "label": ".httpClientError400_throwsPermanentProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L183",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L184",
       "id": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpclienterror400_throwspermanentproviderexception",
-      "community": 3,
+      "community": 2,
       "norm_label": ".httpclienterror400_throwspermanentproviderexception()"
     },
     {
@@ -408,8 +408,8 @@
     {
       "label": "ExchangeRatesControllerTest",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L25",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L26",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest",
       "community": 0,
       "norm_label": "exchangeratescontrollertest"
@@ -417,8 +417,8 @@
     {
       "label": ".happyPath_returnsRatesJsonInFixerShape()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L35",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L36",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_happypath_returnsratesjsoninfixershape",
       "community": 0,
       "norm_label": ".happypath_returnsratesjsoninfixershape()"
@@ -426,8 +426,8 @@
     {
       "label": ".malformedDate_returns400_withErrorBody()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L59",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L60",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_malformeddate_returns400_witherrorbody",
       "community": 0,
       "norm_label": ".malformeddate_returns400_witherrorbody()"
@@ -435,8 +435,8 @@
     {
       "label": ".futureDate_returns400_fromService()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L68",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L69",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_futuredate_returns400_fromservice",
       "community": 0,
       "norm_label": ".futuredate_returns400_fromservice()"
@@ -444,8 +444,8 @@
     {
       "label": ".notFound_returns404()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L80",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L81",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_notfound_returns404",
       "community": 0,
       "norm_label": ".notfound_returns404()"
@@ -453,8 +453,8 @@
     {
       "label": ".providerError_returns502()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L91",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L92",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_providererror_returns502",
       "community": 0,
       "norm_label": ".providererror_returns502()"
@@ -462,8 +462,8 @@
     {
       "label": ".providerNetworkError_returns502()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L103",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L104",
       "id": "exchangeratescontrollertest_exchangeratescontrollertest_providernetworkerror_returns502",
       "community": 0,
       "norm_label": ".providernetworkerror_returns502()"
@@ -480,8 +480,8 @@
     {
       "label": "ExchangeRatesServiceTest",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L29",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L30",
       "id": "exchangeratesservicetest_exchangeratesservicetest",
       "community": 0,
       "norm_label": "exchangeratesservicetest"
@@ -489,8 +489,8 @@
     {
       "label": ".cacheHit_returnsFromDb_withoutCallingProvider()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L41",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L42",
       "id": "exchangeratesservicetest_exchangeratesservicetest_cachehit_returnsfromdb_withoutcallingprovider",
       "community": 0,
       "norm_label": ".cachehit_returnsfromdb_withoutcallingprovider()"
@@ -498,8 +498,8 @@
     {
       "label": ".cacheMiss_fetchesFromProvider_persistsAndReturns()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L66",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L67",
       "id": "exchangeratesservicetest_exchangeratesservicetest_cachemiss_fetchesfromprovider_persistsandreturns",
       "community": 0,
       "norm_label": ".cachemiss_fetchesfromprovider_persistsandreturns()"
@@ -507,8 +507,8 @@
     {
       "label": ".futureDate_throwsInvalidDateException_withoutHittingDbOrProvider()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L93",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L94",
       "id": "exchangeratesservicetest_exchangeratesservicetest_futuredate_throwsinvaliddateexception_withouthittingdborprovider",
       "community": 0,
       "norm_label": ".futuredate_throwsinvaliddateexception_withouthittingdborprovider()"
@@ -516,8 +516,8 @@
     {
       "label": ".concurrentWrite_violatesUniqueConstraint_returnsValueWrittenByOtherRequest()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L105",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L106",
       "id": "exchangeratesservicetest_exchangeratesservicetest_concurrentwrite_violatesuniqueconstraint_returnsvaluewrittenbyotherrequest",
       "community": 0,
       "norm_label": ".concurrentwrite_violatesuniqueconstraint_returnsvaluewrittenbyotherrequest()"
@@ -525,11 +525,47 @@
     {
       "label": ".concurrentWrite_butSecondLookupAlsoEmpty_throwsProviderException()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L134",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L135",
       "id": "exchangeratesservicetest_exchangeratesservicetest_concurrentwrite_butsecondlookupalsoempty_throwsproviderexception",
       "community": 0,
       "norm_label": ".concurrentwrite_butsecondlookupalsoempty_throwsproviderexception()"
+    },
+    {
+      "label": "RatesMapConverterTest.java",
+      "file_type": "code",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L1",
+      "id": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_converter_ratesmapconvertertest_java",
+      "community": 5,
+      "norm_label": "ratesmapconvertertest.java"
+    },
+    {
+      "label": "FixerExchangeRateProviderTest.java",
+      "file_type": "code",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L1",
+      "id": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_provider_fixer_fixerexchangerateprovidertest_java",
+      "community": 2,
+      "norm_label": "fixerexchangerateprovidertest.java"
+    },
+    {
+      "label": "ExchangeRatesControllerTest.java",
+      "file_type": "code",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L1",
+      "id": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_controller_exchangeratescontrollertest_java",
+      "community": 0,
+      "norm_label": "exchangeratescontrollertest.java"
+    },
+    {
+      "label": "ExchangeRatesServiceTest.java",
+      "file_type": "code",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L1",
+      "id": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_service_exchangeratesservicetest_java",
+      "community": 0,
+      "norm_label": "exchangeratesservicetest.java"
     },
     {
       "label": "TestingdayExchangeRatesApplication",
@@ -541,7 +577,7 @@
       "author": null,
       "contributor": null,
       "id": "testingdayexchangeratesapplication_class",
-      "community": 22,
+      "community": 23,
       "norm_label": "testingdayexchangeratesapplication"
     },
     {
@@ -554,7 +590,7 @@
       "author": null,
       "contributor": null,
       "id": "testingdayexchangeratesapplication_main",
-      "community": 22,
+      "community": 23,
       "norm_label": "testingdayexchangeratesapplication.main"
     },
     {
@@ -761,7 +797,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/ExchangeRates.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_provider_exchangerates_java",
-      "community": 27,
+      "community": 28,
       "norm_label": "exchangerates.java"
     },
     {
@@ -770,7 +806,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_provider_fixer_fixerexchangerateprovider_java",
-      "community": 3,
+      "community": 2,
       "norm_label": "fixerexchangerateprovider.java"
     },
     {
@@ -779,7 +815,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L28",
       "id": "fixerexchangerateprovider_fixerexchangerateprovider",
-      "community": 3,
+      "community": 2,
       "norm_label": "fixerexchangerateprovider"
     },
     {
@@ -788,7 +824,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L40",
       "id": "fixerexchangerateprovider_fixerexchangerateprovider_fixerexchangerateprovider",
-      "community": 3,
+      "community": 2,
       "norm_label": ".fixerexchangerateprovider()"
     },
     {
@@ -797,7 +833,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L48",
       "id": "fixerexchangerateprovider_fixerexchangerateprovider_fetchrates",
-      "community": 3,
+      "community": 2,
       "norm_label": ".fetchrates()"
     },
     {
@@ -806,7 +842,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L78",
       "id": "fixerexchangerateprovider_fixerexchangerateprovider_callfixer",
-      "community": 3,
+      "community": 2,
       "norm_label": ".callfixer()"
     },
     {
@@ -815,7 +851,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProvider.java",
       "source_location": "L106",
       "id": "fixerexchangerateprovider_fixerexchangerateprovider_rebasetousd",
-      "community": 3,
+      "community": 2,
       "norm_label": ".rebasetousd()"
     },
     {
@@ -824,7 +860,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/dto/FixerErrorDetail.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_provider_fixer_dto_fixererrordetail_java",
-      "community": 28,
+      "community": 29,
       "norm_label": "fixererrordetail.java"
     },
     {
@@ -833,7 +869,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/provider/fixer/dto/FixerRatesResponse.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_provider_fixer_dto_fixerratesresponse_java",
-      "community": 29,
+      "community": 30,
       "norm_label": "fixerratesresponse.java"
     },
     {
@@ -842,7 +878,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/controller/ExchangeRatesController.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_controller_exchangeratescontroller_java",
-      "community": 0,
+      "community": 15,
       "norm_label": "exchangeratescontroller.java"
     },
     {
@@ -851,7 +887,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/controller/ExchangeRatesController.java",
       "source_location": "L17",
       "id": "exchangeratescontroller_exchangeratescontroller",
-      "community": 0,
+      "community": 15,
       "norm_label": "exchangeratescontroller"
     },
     {
@@ -860,7 +896,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/controller/ExchangeRatesController.java",
       "source_location": "L25",
       "id": "exchangeratescontroller_exchangeratescontroller_exchangeratescontroller",
-      "community": 0,
+      "community": 15,
       "norm_label": ".exchangeratescontroller()"
     },
     {
@@ -932,7 +968,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/InvalidDateException.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_exception_invaliddateexception_java",
-      "community": 15,
+      "community": 16,
       "norm_label": "invaliddateexception.java"
     },
     {
@@ -941,7 +977,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/InvalidDateException.java",
       "source_location": "L3",
       "id": "invaliddateexception_invaliddateexception",
-      "community": 15,
+      "community": 16,
       "norm_label": "invaliddateexception"
     },
     {
@@ -950,7 +986,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/InvalidDateException.java",
       "source_location": "L5",
       "id": "invaliddateexception_invaliddateexception_invaliddateexception",
-      "community": 15,
+      "community": 16,
       "norm_label": ".invaliddateexception()"
     },
     {
@@ -959,7 +995,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ExchangeRateException.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_exception_exchangerateexception_java",
-      "community": 16,
+      "community": 17,
       "norm_label": "exchangerateexception.java"
     },
     {
@@ -968,7 +1004,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ExchangeRateException.java",
       "source_location": "L3",
       "id": "exchangerateexception_exchangerateexception",
-      "community": 16,
+      "community": 17,
       "norm_label": "exchangerateexception"
     },
     {
@@ -977,7 +1013,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ExchangeRateException.java",
       "source_location": "L5",
       "id": "exchangerateexception_exchangerateexception_exchangerateexception",
-      "community": 16,
+      "community": 17,
       "norm_label": ".exchangerateexception()"
     },
     {
@@ -986,7 +1022,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/RatesNotFoundException.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_exception_ratesnotfoundexception_java",
-      "community": 17,
+      "community": 18,
       "norm_label": "ratesnotfoundexception.java"
     },
     {
@@ -995,7 +1031,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/RatesNotFoundException.java",
       "source_location": "L3",
       "id": "ratesnotfoundexception_ratesnotfoundexception",
-      "community": 17,
+      "community": 18,
       "norm_label": "ratesnotfoundexception"
     },
     {
@@ -1004,7 +1040,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/RatesNotFoundException.java",
       "source_location": "L5",
       "id": "ratesnotfoundexception_ratesnotfoundexception_ratesnotfoundexception",
-      "community": 17,
+      "community": 18,
       "norm_label": ".ratesnotfoundexception()"
     },
     {
@@ -1013,7 +1049,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ProviderException.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_exception_providerexception_java",
-      "community": 18,
+      "community": 19,
       "norm_label": "providerexception.java"
     },
     {
@@ -1022,7 +1058,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ProviderException.java",
       "source_location": "L3",
       "id": "providerexception_providerexception",
-      "community": 18,
+      "community": 19,
       "norm_label": "providerexception"
     },
     {
@@ -1031,7 +1067,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/ProviderException.java",
       "source_location": "L5",
       "id": "providerexception_providerexception_providerexception",
-      "community": 18,
+      "community": 19,
       "norm_label": ".providerexception()"
     },
     {
@@ -1040,7 +1076,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/TransientProviderException.java",
       "source_location": "L1",
       "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_rates_exception_transientproviderexception_java",
-      "community": 19,
+      "community": 20,
       "norm_label": "transientproviderexception.java"
     },
     {
@@ -1049,7 +1085,7 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/TransientProviderException.java",
       "source_location": "L3",
       "id": "transientproviderexception_transientproviderexception",
-      "community": 19,
+      "community": 20,
       "norm_label": "transientproviderexception"
     },
     {
@@ -1058,49 +1094,58 @@
       "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/rates/exception/TransientProviderException.java",
       "source_location": "L5",
       "id": "transientproviderexception_transientproviderexception_transientproviderexception",
-      "community": 19,
+      "community": 20,
       "norm_label": ".transientproviderexception()"
     },
     {
-      "label": "TraceIdFilter.java",
+      "label": "AppConfig.java",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/TraceIdFilter.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
       "source_location": "L1",
-      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_traceidfilter_java",
-      "community": 20,
-      "norm_label": "traceidfilter.java"
+      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_config_appconfig_java",
+      "community": 10,
+      "norm_label": "appconfig.java"
     },
     {
-      "label": "TraceIdFilter",
+      "label": "AppConfig",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/TraceIdFilter.java",
-      "source_location": "L13",
-      "id": "traceidfilter_traceidfilter",
-      "community": 20,
-      "norm_label": "traceidfilter"
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L14",
+      "id": "appconfig_appconfig",
+      "community": 10,
+      "norm_label": "appconfig"
     },
     {
-      "label": ".doFilterInternal()",
+      "label": ".traceIdFilterRegistration()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/TraceIdFilter.java",
-      "source_location": "L18",
-      "id": "traceidfilter_traceidfilter_dofilterinternal",
-      "community": 20,
-      "norm_label": ".dofilterinternal()"
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L17",
+      "id": "appconfig_appconfig_traceidfilterregistration",
+      "community": 10,
+      "norm_label": ".traceidfilterregistration()"
+    },
+    {
+      "label": ".restTemplate()",
+      "file_type": "code",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L24",
+      "id": "appconfig_appconfig_resttemplate",
+      "community": 10,
+      "norm_label": ".resttemplate()"
     },
     {
       "label": "GlobalExceptionHandler.java",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L1",
-      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_globalexceptionhandler_java",
+      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_globalexceptionhandler_java",
       "community": 8,
       "norm_label": "globalexceptionhandler.java"
     },
     {
       "label": "GlobalExceptionHandler",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L14",
       "id": "globalexceptionhandler_globalexceptionhandler",
       "community": 8,
@@ -1109,7 +1154,7 @@
     {
       "label": ".handleInvalidDate()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L19",
       "id": "globalexceptionhandler_globalexceptionhandler_handleinvaliddate",
       "community": 8,
@@ -1118,7 +1163,7 @@
     {
       "label": ".handleNotFound()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L26",
       "id": "globalexceptionhandler_globalexceptionhandler_handlenotfound",
       "community": 8,
@@ -1127,7 +1172,7 @@
     {
       "label": ".handleProvider()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L33",
       "id": "globalexceptionhandler_globalexceptionhandler_handleprovider",
       "community": 8,
@@ -1136,7 +1181,7 @@
     {
       "label": ".handleTypeMismatch()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L40",
       "id": "globalexceptionhandler_globalexceptionhandler_handletypemismatch",
       "community": 8,
@@ -1145,7 +1190,7 @@
     {
       "label": ".handleGeneric()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L47",
       "id": "globalexceptionhandler_globalexceptionhandler_handlegeneric",
       "community": 8,
@@ -1154,65 +1199,56 @@
     {
       "label": "ErrorResponse.java",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/ErrorResponse.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/ErrorResponse.java",
       "source_location": "L1",
-      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_errorresponse_java",
-      "community": 3,
+      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_errorresponse_java",
+      "community": 2,
       "norm_label": "errorresponse.java"
     },
     {
       "label": "ErrorResponse()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/ErrorResponse.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/ErrorResponse.java",
       "source_location": "L5",
       "id": "errorresponse_errorresponse",
-      "community": 3,
+      "community": 2,
       "norm_label": "errorresponse()"
     },
     {
       "label": "isSuccess()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/ErrorResponse.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/ErrorResponse.java",
       "source_location": "L9",
       "id": "errorresponse_issuccess",
-      "community": 3,
+      "community": 2,
       "norm_label": "issuccess()"
     },
     {
-      "label": "AppConfig.java",
+      "label": "TraceIdFilter.java",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/filter/TraceIdFilter.java",
       "source_location": "L1",
-      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_appconfig_java",
-      "community": 10,
-      "norm_label": "appconfig.java"
+      "id": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_filter_traceidfilter_java",
+      "community": 21,
+      "norm_label": "traceidfilter.java"
     },
     {
-      "label": "AppConfig",
+      "label": "TraceIdFilter",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/filter/TraceIdFilter.java",
       "source_location": "L13",
-      "id": "appconfig_appconfig",
-      "community": 10,
-      "norm_label": "appconfig"
+      "id": "traceidfilter_traceidfilter",
+      "community": 21,
+      "norm_label": "traceidfilter"
     },
     {
-      "label": ".traceIdFilterRegistration()",
+      "label": ".doFilterInternal()",
       "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
-      "source_location": "L16",
-      "id": "appconfig_appconfig_traceidfilterregistration",
-      "community": 10,
-      "norm_label": ".traceidfilterregistration()"
-    },
-    {
-      "label": ".restTemplate()",
-      "file_type": "code",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
-      "source_location": "L23",
-      "id": "appconfig_appconfig_resttemplate",
-      "community": 10,
-      "norm_label": ".resttemplate()"
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/filter/TraceIdFilter.java",
+      "source_location": "L18",
+      "id": "traceidfilter_traceidfilter_dofilterinternal",
+      "community": 21,
+      "norm_label": ".dofilterinternal()"
     },
     {
       "label": "Exchange Rates Task Assignment",
@@ -1223,7 +1259,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 11,
       "norm_label": "exchange rates task assignment",
       "id": "assignment_exchange_rates_task"
     },
@@ -1236,7 +1272,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "fixer.io as exchange rates source",
       "id": "assignment_fixer_io_source"
     },
@@ -1249,7 +1285,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "caching layer over third-party service",
       "id": "assignment_caching_layer_pattern"
     },
@@ -1262,7 +1298,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "postgresql for cached exchange rates",
       "id": "assignment_postgresql_cache"
     },
@@ -1275,7 +1311,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 11,
       "norm_label": "architecture quality over feature coverage",
       "id": "assignment_architecture_priority"
     },
@@ -1288,7 +1324,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 11,
       "norm_label": "solid error handling for downstream services",
       "id": "assignment_error_handling_requirement"
     },
@@ -1301,7 +1337,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 11,
       "norm_label": "no api authentication needed (internal service)",
       "id": "assignment_no_auth_required"
     },
@@ -1314,7 +1350,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 12,
       "norm_label": "hibernate/jpa requirement",
       "id": "assignment_hibernate_requirement"
     },
@@ -1340,7 +1376,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 30,
+      "community": 31,
       "norm_label": "get /api/v1/rates/{day} endpoint",
       "id": "assignment_api_endpoint"
     },
@@ -1483,7 +1519,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "implementation plan phase 1",
       "id": "impl_plan_phase1"
     },
@@ -1496,7 +1532,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "spring boot 2.7 / java 17 / maven skeleton",
       "id": "impl_plan_spring_boot_skeleton"
     },
@@ -1509,7 +1545,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "fixer.io eur-to-usd rebasing constraint",
       "id": "impl_plan_fixer_eur_rebase"
     },
@@ -1535,7 +1571,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "appconfig (resttemplate bean, @value bindings)",
       "id": "impl_plan_appconfig"
     },
@@ -1548,7 +1584,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exchangeratesnapshot jpa entity",
       "id": "impl_plan_exchange_rate_snapshot_entity"
     },
@@ -1561,7 +1597,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "ratesmapconverter (jpa attributeconverter map<string,bigdecimal>)",
       "id": "impl_plan_rates_map_converter"
     },
@@ -1574,7 +1610,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exchangeratesnapshotrepository (jparepository)",
       "id": "impl_plan_exchange_rate_snapshot_repo"
     },
@@ -1587,7 +1623,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "fixerratesresponse dto",
       "id": "impl_plan_fixer_rates_response_dto"
     },
@@ -1600,7 +1636,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 31,
+      "community": 32,
       "norm_label": "fixererrorresponse dto",
       "id": "impl_plan_fixer_error_response_dto"
     },
@@ -1613,7 +1649,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "fixerclient (resttemplate http client)",
       "id": "impl_plan_fixer_client"
     },
@@ -1626,7 +1662,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exchangeratesservice (cache-aside logic)",
       "id": "impl_plan_exchange_rates_service"
     },
@@ -1639,7 +1675,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "ratesresponse dto (mirrors fixer historical shape)",
       "id": "impl_plan_rates_response_dto"
     },
@@ -1652,7 +1688,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "errorresponse dto",
       "id": "impl_plan_error_response_dto"
     },
@@ -1665,7 +1701,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exception hierarchy (exchangerateexception / ratesnotfoundexception / fixerapiexception / invaliddateexception)",
       "id": "impl_plan_exception_hierarchy"
     },
@@ -1678,7 +1714,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "globalexceptionhandler (@controlleradvice)",
       "id": "impl_plan_global_exception_handler"
     },
@@ -1691,7 +1727,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exchangeratescontroller update (wire service, parse day)",
       "id": "impl_plan_controller_update"
     },
@@ -1704,7 +1740,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "exchangeratescontrollertest integration test",
       "id": "impl_plan_integration_test"
     },
@@ -1730,7 +1766,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "rationale: fixer free plan locks base to eur, rebase required in service",
       "id": "impl_plan_rationale_eur_rebase"
     },
@@ -1743,7 +1779,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "rationale: db unique constraint + dataintegrityviolationexception handles concurrent cache writes",
       "id": "impl_plan_rationale_concurrent_write"
     },
@@ -1782,7 +1818,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "god node: ratesresponse (8 edges)",
       "id": "graph_report_god_node_rates_response"
     },
@@ -1795,7 +1831,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 3,
       "norm_label": "god node: exchangeratesnapshot (8 edges)",
       "id": "graph_report_god_node_exchange_rate_snapshot"
     },
@@ -1977,7 +2013,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 23,
+      "community": 24,
       "norm_label": "testingdayexchangeratesapplication",
       "id": "obsidian_testingday_app"
     },
@@ -2042,7 +2078,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 32,
+      "community": 33,
       "norm_label": "community: caching & data layer",
       "id": "obsidian_community_caching_data_layer"
     },
@@ -2068,7 +2104,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 23,
+      "community": 24,
       "norm_label": "community: app bootstrap & tests",
       "id": "obsidian_community_app_bootstrap"
     },
@@ -2107,7 +2143,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 24,
+      "community": 25,
       "norm_label": "get /api/v1/rates/{day} endpoint",
       "id": "get_apiv1rates_day_endpoint"
     },
@@ -2185,7 +2221,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 24,
+      "community": 25,
       "norm_label": "community: api endpoint controller",
       "id": "community_api_endpoint_controller"
     },
@@ -2289,7 +2325,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "postgresql for cached exchange rates",
       "id": "postgresql_for_cached_exchange_rates"
     },
@@ -2354,7 +2390,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "hibernate/jpa requirement",
       "id": "hibernatejpa_requirement"
     },
@@ -2380,7 +2416,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 33,
+      "community": 34,
       "norm_label": "community: spring boot app entry",
       "id": "community_spring_boot_app_entry"
     },
@@ -2393,7 +2429,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 22,
       "norm_label": "caching layer over third-party service",
       "id": "caching_layer_over_third_party_service"
     },
@@ -2406,7 +2442,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 34,
+      "community": 35,
       "norm_label": "postgresql 14 via docker compose",
       "id": "postgresql_14_via_docker_compose"
     },
@@ -2419,7 +2455,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 35,
+      "community": 36,
       "norm_label": "hyperedge: assignment non-functional requirements (architecture, error handling, no auth)",
       "id": "hyperedge_assignment_nonfunctional_requirements"
     },
@@ -2432,7 +2468,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 36,
+      "community": 37,
       "norm_label": "rationale: no auth because internal service",
       "id": "rationale_no_auth_because_internal_service"
     }
@@ -2861,8 +2897,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L19",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L20",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_setup",
@@ -2873,8 +2909,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L24",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L25",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_converttodatabasecolumn_serializesmaptojsonstring",
@@ -2885,8 +2921,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L39",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L40",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_deserializesjsonstringtomap",
@@ -2897,8 +2933,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L51",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L52",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_roundtrip_preservesbigdecimalprecision",
@@ -2909,8 +2945,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L67",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L68",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_converttodatabasecolumn_emptymap_returnsemptyjsonobject",
@@ -2921,8 +2957,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L74",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L75",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_emptyjsonobject_returnsemptymap",
@@ -2933,13 +2969,25 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/converter/RatesMapConverterTest.java",
-      "source_location": "L81",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L82",
       "weight": 1.0,
       "_src": "ratesmapconvertertest_ratesmapconvertertest",
       "_tgt": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_malformedjson_throwsillegalstateexception",
       "source": "ratesmapconvertertest_ratesmapconvertertest",
       "target": "ratesmapconvertertest_ratesmapconvertertest_converttoentityattribute_malformedjson_throwsillegalstateexception",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/converter/RatesMapConverterTest.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_src": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_converter_ratesmapconvertertest_java",
+      "_tgt": "ratesmapconvertertest_ratesmapconvertertest",
+      "source": "ratesmapconvertertest_ratesmapconvertertest",
+      "target": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_converter_ratesmapconvertertest_java",
       "confidence_score": 1.0
     },
     {
@@ -3041,8 +3089,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L35",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L36",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_setup",
@@ -3053,8 +3101,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L42",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L43",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_successresponse_rebaseseurtousd_andreturnsexchangerates",
@@ -3065,8 +3113,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L78",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L79",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_fixercode106_throwsratesnotfoundexception",
@@ -3077,8 +3125,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L96",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L97",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_fixercode104_quotareached_throwspermanentproviderexception",
@@ -3089,8 +3137,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L115",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L116",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_emptyratesmap_throwsratesnotfoundexception",
@@ -3101,8 +3149,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L136",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L137",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_usdmissingfromrates_throwspermanentproviderexception",
@@ -3113,8 +3161,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L159",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L160",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpservererror_throwstransientproviderexception",
@@ -3125,8 +3173,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L171",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L172",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpclienterror429_throwstransientproviderexception",
@@ -3137,13 +3185,25 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/provider/fixer/FixerExchangeRateProviderTest.java",
-      "source_location": "L183",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L184",
       "weight": 1.0,
       "_src": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpclienterror400_throwspermanentproviderexception",
       "source": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
       "target": "fixerexchangerateprovidertest_fixerexchangerateprovidertest_httpclienterror400_throwspermanentproviderexception",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/provider/fixer/FixerExchangeRateProviderTest.java",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_provider_fixer_fixerexchangerateprovidertest_java",
+      "_tgt": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
+      "source": "fixerexchangerateprovidertest_fixerexchangerateprovidertest",
+      "target": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_provider_fixer_fixerexchangerateprovidertest_java",
       "confidence_score": 1.0
     },
     {
@@ -3305,8 +3365,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L35",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L36",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_happypath_returnsratesjsoninfixershape",
@@ -3317,8 +3377,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L59",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L60",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_malformeddate_returns400_witherrorbody",
@@ -3329,8 +3389,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L68",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L69",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_futuredate_returns400_fromservice",
@@ -3341,8 +3401,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L80",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L81",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_notfound_returns404",
@@ -3353,8 +3413,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L91",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L92",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_providererror_returns502",
@@ -3365,13 +3425,25 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/controller/ExchangeRatesControllerTest.java",
-      "source_location": "L103",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L104",
       "weight": 1.0,
       "_src": "exchangeratescontrollertest_exchangeratescontrollertest",
       "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest_providernetworkerror_returns502",
       "source": "exchangeratescontrollertest_exchangeratescontrollertest",
       "target": "exchangeratescontrollertest_exchangeratescontrollertest_providernetworkerror_returns502",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/controller/ExchangeRatesControllerTest.java",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_controller_exchangeratescontrollertest_java",
+      "_tgt": "exchangeratescontrollertest_exchangeratescontrollertest",
+      "source": "exchangeratescontrollertest_exchangeratescontrollertest",
+      "target": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_controller_exchangeratescontrollertest_java",
       "confidence_score": 1.0
     },
     {
@@ -3449,8 +3521,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L41",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L42",
       "weight": 1.0,
       "_src": "exchangeratesservicetest_exchangeratesservicetest",
       "_tgt": "exchangeratesservicetest_exchangeratesservicetest_cachehit_returnsfromdb_withoutcallingprovider",
@@ -3461,8 +3533,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L66",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L67",
       "weight": 1.0,
       "_src": "exchangeratesservicetest_exchangeratesservicetest",
       "_tgt": "exchangeratesservicetest_exchangeratesservicetest_cachemiss_fetchesfromprovider_persistsandreturns",
@@ -3473,8 +3545,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L93",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L94",
       "weight": 1.0,
       "_src": "exchangeratesservicetest_exchangeratesservicetest",
       "_tgt": "exchangeratesservicetest_exchangeratesservicetest_futuredate_throwsinvaliddateexception_withouthittingdborprovider",
@@ -3485,8 +3557,8 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L105",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L106",
       "weight": 1.0,
       "_src": "exchangeratesservicetest_exchangeratesservicetest",
       "_tgt": "exchangeratesservicetest_exchangeratesservicetest_concurrentwrite_violatesuniqueconstraint_returnsvaluewrittenbyotherrequest",
@@ -3497,13 +3569,25 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/service/ExchangeRatesServiceTest.java",
-      "source_location": "L134",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L135",
       "weight": 1.0,
       "_src": "exchangeratesservicetest_exchangeratesservicetest",
       "_tgt": "exchangeratesservicetest_exchangeratesservicetest_concurrentwrite_butsecondlookupalsoempty_throwsproviderexception",
       "source": "exchangeratesservicetest_exchangeratesservicetest",
       "target": "exchangeratesservicetest_exchangeratesservicetest_concurrentwrite_butsecondlookupalsoempty_throwsproviderexception",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/test/java/com/shipmonk/testingday/rates/modules/service/ExchangeRatesServiceTest.java",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_src": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_service_exchangeratesservicetest_java",
+      "_tgt": "exchangeratesservicetest_exchangeratesservicetest",
+      "source": "exchangeratesservicetest_exchangeratesservicetest",
+      "target": "users_zibby_workspace_shipmonk_interview_src_test_java_com_shipmonk_testingday_rates_modules_service_exchangeratesservicetest_java",
       "confidence_score": 1.0
     },
     {
@@ -4529,43 +4613,55 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/TraceIdFilter.java",
-      "source_location": "L13",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L14",
       "weight": 1.0,
-      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_traceidfilter_java",
-      "_tgt": "traceidfilter_traceidfilter",
-      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_traceidfilter_java",
-      "target": "traceidfilter_traceidfilter",
+      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_config_appconfig_java",
+      "_tgt": "appconfig_appconfig",
+      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_config_appconfig_java",
+      "target": "appconfig_appconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/TraceIdFilter.java",
-      "source_location": "L18",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L17",
       "weight": 1.0,
-      "_src": "traceidfilter_traceidfilter",
-      "_tgt": "traceidfilter_traceidfilter_dofilterinternal",
-      "source": "traceidfilter_traceidfilter",
-      "target": "traceidfilter_traceidfilter_dofilterinternal",
+      "_src": "appconfig_appconfig",
+      "_tgt": "appconfig_appconfig_traceidfilterregistration",
+      "source": "appconfig_appconfig",
+      "target": "appconfig_appconfig_traceidfilterregistration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/config/AppConfig.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "appconfig_appconfig",
+      "_tgt": "appconfig_appconfig_resttemplate",
+      "source": "appconfig_appconfig",
+      "target": "appconfig_appconfig_resttemplate",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L14",
       "weight": 1.0,
-      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_globalexceptionhandler_java",
+      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_globalexceptionhandler_java",
       "_tgt": "globalexceptionhandler_globalexceptionhandler",
-      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_globalexceptionhandler_java",
+      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_globalexceptionhandler_java",
       "target": "globalexceptionhandler_globalexceptionhandler",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L19",
       "weight": 1.0,
       "_src": "globalexceptionhandler_globalexceptionhandler",
@@ -4577,7 +4673,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L26",
       "weight": 1.0,
       "_src": "globalexceptionhandler_globalexceptionhandler",
@@ -4589,7 +4685,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L33",
       "weight": 1.0,
       "_src": "globalexceptionhandler_globalexceptionhandler",
@@ -4601,7 +4697,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L40",
       "weight": 1.0,
       "_src": "globalexceptionhandler_globalexceptionhandler",
@@ -4613,7 +4709,7 @@
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/GlobalExceptionHandler.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/GlobalExceptionHandler.java",
       "source_location": "L47",
       "weight": 1.0,
       "_src": "globalexceptionhandler_globalexceptionhandler",
@@ -4625,61 +4721,49 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/ErrorResponse.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/ErrorResponse.java",
       "source_location": "L5",
       "weight": 1.0,
-      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_errorresponse_java",
+      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_errorresponse_java",
       "_tgt": "errorresponse_errorresponse",
-      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_errorresponse_java",
+      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_errorresponse_java",
       "target": "errorresponse_errorresponse",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/ErrorResponse.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/ErrorResponse.java",
       "source_location": "L9",
       "weight": 1.0,
-      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_errorresponse_java",
+      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_errorresponse_java",
       "_tgt": "errorresponse_issuccess",
-      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_errorresponse_java",
+      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_errorresponse_java",
       "target": "errorresponse_issuccess",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/filter/TraceIdFilter.java",
       "source_location": "L13",
       "weight": 1.0,
-      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_appconfig_java",
-      "_tgt": "appconfig_appconfig",
-      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_shared_appconfig_java",
-      "target": "appconfig_appconfig",
+      "_src": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_filter_traceidfilter_java",
+      "_tgt": "traceidfilter_traceidfilter",
+      "source": "users_zibby_workspace_shipmonk_interview_src_main_java_com_shipmonk_testingday_web_filter_traceidfilter_java",
+      "target": "traceidfilter_traceidfilter",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
-      "source_location": "L16",
+      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/web/filter/TraceIdFilter.java",
+      "source_location": "L18",
       "weight": 1.0,
-      "_src": "appconfig_appconfig",
-      "_tgt": "appconfig_appconfig_traceidfilterregistration",
-      "source": "appconfig_appconfig",
-      "target": "appconfig_appconfig_traceidfilterregistration",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "/Users/zibby/Workspace/shipmonk-interview/src/main/java/com/shipmonk/testingday/shared/AppConfig.java",
-      "source_location": "L23",
-      "weight": 1.0,
-      "_src": "appconfig_appconfig",
-      "_tgt": "appconfig_appconfig_resttemplate",
-      "source": "appconfig_appconfig",
-      "target": "appconfig_appconfig_resttemplate",
+      "_src": "traceidfilter_traceidfilter",
+      "_tgt": "traceidfilter_traceidfilter_dofilterinternal",
+      "source": "traceidfilter_traceidfilter",
+      "target": "traceidfilter_traceidfilter_dofilterinternal",
       "confidence_score": 1.0
     },
     {
