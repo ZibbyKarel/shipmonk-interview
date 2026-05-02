@@ -104,7 +104,8 @@ graph TD
 
   subgraph PROVIDER["&nbsp; Provider Layer &nbsp;"]
     IFACE["ExchangeRateProvider\n&lt;&lt;interface&gt;&gt;"]
-    FIXER["FixerExchangeRateProvider\n@Component · @Retry"]
+    FIXER["FixerExchangeRateProvider\n@Component · @CircuitBreaker · @Retry"]
+    CB["CircuitBreaker 'fixer'\ncount-based · 50% threshold\n30 s open · 2 probes"]
     EXRATES["ExchangeRates\n&lt;&lt;record&gt;&gt;"]
     FIXRESP["FixerRatesResponse\n&lt;&lt;record&gt;&gt;"]
     FIXERR["FixerErrorDetail\n&lt;&lt;record&gt;&gt;"]
@@ -140,6 +141,7 @@ graph TD
   SERVICE --> REPO
   SERVICE -->|"returns"| RRESP
   IFACE -.->|"implements"| FIXER
+  CB -.->|"guards (outer)"| FIXER
   FIXER --> RT
   FIXER -->|"deserializes"| FIXRESP
   FIXRESP --> FIXERR
@@ -174,12 +176,14 @@ graph TD
   style TF fill:#1a2535,stroke:#334155,color:#e2e8f0
   style HTTP fill:#0f172a,stroke:#64748b,color:#94a3b8
   style DB fill:#134e4a,stroke:#0d9488,color:#a7f3d0
+  style CB fill:#312e0f,stroke:#ca8a04,color:#fde68a
   style IFACE fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
   style BASE fill:#2d1515,stroke:#7f1d1d,color:#fca5a5
     </div>
     <div class="legend">
       <span class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span> Interface</span>
       <span class="legend-item"><span class="legend-dot" style="background:#0d9488"></span> External system (DB)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ca8a04"></span> Circuit breaker</span>
       <span class="legend-item"><span class="legend-dot" style="background:#7f1d1d"></span> Exception base class</span>
       <span class="legend-item"><span class="legend-dot" style="background:#334155"></span> Component group / layer</span>
       <span class="legend-item">── solid arrow: dependency / call</span>
@@ -236,6 +240,12 @@ sequenceDiagram
     else CACHE MISS — must fetch
       RP-->>SV: Optional.empty()
 
+      alt CircuitBreaker OPEN — failure rate exceeded threshold
+        SV->>FX: fetchRates(date)
+        Note over FX: CallNotPermittedException → ProviderException
+        FX->>GE: ProviderException (circuit open)
+        GE-->>C: 502 Bad Gateway
+      else CircuitBreaker CLOSED or HALF-OPEN
       loop @Retry(name="fixer") — up to 3 attempts on TransientProviderException
         SV->>FX: fetchRates(date)
         FX->>API: GET /{date}?access_key=...
@@ -258,6 +268,8 @@ sequenceDiagram
         end
       end
 
+      end
+
       Note over SV: Retries exhausted → ProviderException
       SV->>RP: save(new ExchangeRateSnapshot)
       RP->>DB: INSERT INTO exchange_rate_snapshot
@@ -278,7 +290,7 @@ sequenceDiagram
   end
     </div>
     <div class="legend">
-      <span class="legend-item">The sequence shows five entry branches: bad date format (400), Spring type-mismatch (400), future date (400), unhandled exception (500), and valid historical date — which splits into cache hit (200 fast) and cache miss with fixer.io fetch + retry + concurrent-write guard.</span>
+      <span class="legend-item">The sequence shows five entry branches: bad date format (400), Spring type-mismatch (400), future date (400), unhandled exception (500), and valid historical date — which splits into cache hit (200 fast) and cache miss with fixer.io fetch. The cache-miss path first checks the circuit breaker state: if OPEN, a 502 is returned immediately without touching fixer.io; if CLOSED/HALF-OPEN, up to 3 retry attempts are made, followed by a concurrent-write guard on cache persist.</span>
     </div>
   </div>
 </div>

@@ -116,7 +116,7 @@ Layers:
 - **Controller** (`rates/controller`) — parses and validates `{day}`, delegates to service
 - **Service** (`rates/service`) — cache-first logic; on cache miss calls provider and persists to DB
 - **Repository** (`rates/repository`) — JPA/Hibernate, `ExchangeRateSnapshot` entity with unique index on date
-- **Provider** (`rates/provider`) — `ExchangeRateProvider` interface; `FixerExchangeRateProvider` implementation with `@Retry` (3 attempts, exponential backoff)
+- **Provider** (`rates/provider`) — `ExchangeRateProvider` interface; `FixerExchangeRateProvider` implementation with `@CircuitBreaker` (outer, count-based window of 10 calls, opens at ≥50% failures, 30 s wait, 2 probe calls in HALF-OPEN) wrapping `@Retry` (3 attempts, exponential backoff); aspect order is intentionally set so that one complete retry cycle registers as one outcome on the breaker, not each individual HTTP attempt
 - **Shared** (`shared/`) — `GlobalExceptionHandler`, `TraceIdFilter`, `AppConfig`
 
 ---
@@ -139,3 +139,4 @@ This project was built with [Claude Code](https://claude.ai/code) (Anthropic's A
 | **3 — Package-by-domain** | Migrated from flat package-by-layer to a `rates/` domain and `shared/` cross-cutting layer |
 | **4 — Dockerization** | Multi-stage Dockerfile (build → slim JRE), database healthcheck in `docker-compose.yml`, env-var overrides for `DB_HOST` and `FIXER_API_KEY` |
 | **5 — Logging + traceId** | `TraceIdFilter` generates/propagates `X-Trace-Id`, MDC integration across all layers, `logback-spring.xml`, interceptor copying traceId onto outbound fixer.io requests |
+| **6 — Circuit breaker** | `@CircuitBreaker(name="fixer")` added to `FixerExchangeRateProvider`; count-based sliding window (size 10, min 5 calls, 50% failure threshold); 30 s OPEN state → auto-transition to HALF-OPEN with 2 probe calls; aspect order (CB=1, Retry=2) ensures one retry cycle = one breaker outcome; `ProviderException` recorded, `RatesNotFoundException`/`InvalidDateException` ignored; breaker state exposed via `/actuator/health` |
