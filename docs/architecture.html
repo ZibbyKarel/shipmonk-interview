@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exchange Rates Service — Architecture</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #f8fafc;
+    }
+    .subtitle {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+    .section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #1e2a3a;
+    }
+    .diagram-card {
+      background: #161b26;
+      border: 1px solid #1e2a3a;
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      overflow-x: auto;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+    .legend {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Exchange Rates Service</h1>
+<p class="subtitle">Component dependencies &amp; request-path flow &mdash; ShipMonk interview project</p>
+
+<!-- ─── 1. Component / Dependency Map ─────────────────────────────────────── -->
+<div class="section">
+  <h2>1 &nbsp; Component &amp; Dependency Map</h2>
+  <div class="diagram-card">
+    <div class="mermaid">
+%%{init: {"theme": "dark", "flowchart": {"curve": "basis", "rankSpacing": 60, "nodeSpacing": 40}}}%%
+graph TD
+
+  subgraph CLIENT["&nbsp; External &nbsp;"]
+    HTTP["HTTP Client"]
+  end
+
+  subgraph WEB["&nbsp; Web Layer &nbsp;"]
+    CTRL["ExchangeRatesController\n@RestController"]
+  end
+
+  subgraph SHARED["&nbsp; Cross-cutting &nbsp;"]
+    GEH["GlobalExceptionHandler\n@RestControllerAdvice"]
+    ERRDTO["ErrorResponse\n&lt;&lt;record&gt;&gt;"]
+    APPCFG["AppConfig\n@Configuration"]
+    RT["RestTemplate"]
+  end
+
+  subgraph SVC["&nbsp; Service Layer &nbsp;"]
+    SERVICE["ExchangeRatesService\n@Service"]
+  end
+
+  subgraph PROVIDER["&nbsp; Provider Layer &nbsp;"]
+    IFACE["ExchangeRateProvider\n&lt;&lt;interface&gt;&gt;"]
+    FIXER["FixerExchangeRateProvider\n@Component · @Retry"]
+    EXRATES["ExchangeRates\n&lt;&lt;record&gt;&gt;"]
+    FIXRESP["FixerRatesResponse\n&lt;&lt;record&gt;&gt;"]
+    FIXERR["FixerErrorDetail\n&lt;&lt;record&gt;&gt;"]
+  end
+
+  subgraph PERSIST["&nbsp; Persistence Layer &nbsp;"]
+    REPO["ExchangeRateSnapshotRepository\nJpaRepository"]
+    ENTITY["ExchangeRateSnapshot\n@Entity"]
+    CONV["RatesMapConverter\n@Converter"]
+    DB[("PostgreSQL 14\n(Docker)")]
+  end
+
+  subgraph DTO["&nbsp; Response DTO &nbsp;"]
+    RRESP["RatesResponse\n&lt;&lt;record&gt;&gt;"]
+  end
+
+  subgraph EX["&nbsp; Exception Hierarchy &nbsp;"]
+    BASE["ExchangeRateException\nRuntimeException"]
+    PROVEX["ProviderException\n→ 502"]
+    TRANSIENT["TransientProviderException\n(retryable)"]
+    NOTFOUND["RatesNotFoundException\n→ 404"]
+    INVDATE["InvalidDateException\n→ 400"]
+  end
+
+  HTTP -->|"GET /api/v1/rates/{day}"| CTRL
+  CTRL --> SERVICE
+  CTRL -->|"throws"| INVDATE
+  SERVICE -->|"getRatesForDay()"| IFACE
+  SERVICE --> REPO
+  SERVICE -->|"returns"| RRESP
+  IFACE -.->|"implements"| FIXER
+  FIXER --> RT
+  FIXER -->|"deserializes"| FIXRESP
+  FIXRESP --> FIXERR
+  FIXER -->|"returns"| EXRATES
+  FIXER -->|"throws"| PROVEX
+  FIXER -->|"throws"| TRANSIENT
+  FIXER -->|"throws"| NOTFOUND
+  APPCFG -->|"@Bean"| RT
+  REPO -->|"findByDate / save"| ENTITY
+  ENTITY -->|"@Convert"| CONV
+  ENTITY --> DB
+  REPO --> DB
+  GEH -->|"handles"| BASE
+  GEH -->|"returns"| ERRDTO
+  BASE --> PROVEX
+  PROVEX --> TRANSIENT
+  BASE --> NOTFOUND
+  BASE --> INVDATE
+
+  style CLIENT fill:#1a2535,stroke:#334155
+  style WEB fill:#1a2535,stroke:#334155
+  style SHARED fill:#1a2535,stroke:#334155
+  style SVC fill:#1a2535,stroke:#334155
+  style PROVIDER fill:#1a2535,stroke:#334155
+  style PERSIST fill:#1a2535,stroke:#334155
+  style DTO fill:#1a2535,stroke:#334155
+  style EX fill:#1a2535,stroke:#334155
+
+  style HTTP fill:#0f172a,stroke:#64748b,color:#94a3b8
+  style DB fill:#134e4a,stroke:#0d9488,color:#a7f3d0
+  style IFACE fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
+  style BASE fill:#2d1515,stroke:#7f1d1d,color:#fca5a5
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span> Interface</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#0d9488"></span> External system (DB)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#7f1d1d"></span> Exception base class</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#334155"></span> Component group / layer</span>
+      <span class="legend-item">── solid arrow: dependency / call</span>
+      <span class="legend-item">·· dashed arrow: implements</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 2. Request Path ────────────────────────────────────────────────────── -->
+<div class="section">
+  <h2>2 &nbsp; Request Path (Sequence)</h2>
+  <div class="diagram-card">
+    <div class="mermaid">
+%%{init: {"theme": "dark", "sequence": {"actorMargin": 60, "messageMargin": 30}}}%%
+sequenceDiagram
+  autonumber
+
+  participant C  as HTTP Client
+  participant CT as ExchangeRatesController
+  participant GE as GlobalExceptionHandler
+  participant SV as ExchangeRatesService
+  participant RP as ExchangeRateSnapshotRepository
+  participant DB as PostgreSQL
+  participant FX as FixerExchangeRateProvider
+  participant API as fixer.io API
+
+  C->>CT: GET /api/v1/rates/{day}
+
+  alt invalid date format (DateTimeParseException)
+    CT->>GE: InvalidDateException
+    GE-->>C: 400 Bad Request
+  else future date
+    CT->>SV: getRatesForDay(date)
+    SV->>GE: InvalidDateException
+    GE-->>C: 400 Bad Request
+  else valid historical date
+    CT->>SV: getRatesForDay(date)
+
+    SV->>RP: findByDate(date)
+    RP->>DB: SELECT * WHERE rate_date = ?
+    DB-->>RP: result
+
+    alt CACHE HIT — snapshot exists
+      RP-->>SV: Optional[ExchangeRateSnapshot]
+      SV-->>CT: RatesResponse
+      CT-->>C: 200 OK (from cache)
+    else CACHE MISS — must fetch
+      RP-->>SV: Optional.empty()
+
+      loop @Retry(name="fixer") — up to 3 attempts on TransientProviderException
+        SV->>FX: fetchRates(date)
+        FX->>API: GET /{date}?access_key=...
+
+        alt 200 success
+          API-->>FX: FixerRatesResponse{success:true, rates:...}
+          Note over FX: rebaseToUsd() — divide all rates by USD rate
+          FX-->>SV: ExchangeRates (base=USD)
+        else 429 / 5xx / network timeout
+          API-->>FX: HTTP error / IOException
+          FX->>GE: TransientProviderException (retried)
+        else fixer error code 106 (no data for date)
+          API-->>FX: FixerRatesResponse{success:false, error.code=106}
+          FX->>GE: RatesNotFoundException
+          GE-->>C: 404 Not Found
+        else fixer permanent error (bad key, quota)
+          API-->>FX: FixerRatesResponse{success:false}
+          FX->>GE: ProviderException
+          GE-->>C: 502 Bad Gateway
+        end
+      end
+
+      Note over SV: Retries exhausted → ProviderException
+      SV->>RP: save(new ExchangeRateSnapshot)
+      RP->>DB: INSERT INTO exchange_rate_snapshot
+
+      alt concurrent insert (DataIntegrityViolationException)
+        DB-->>RP: UniqueConstraintViolation on rate_date
+        RP-->>SV: DataIntegrityViolationException
+        Note over SV: Another request already cached this date
+        SV->>RP: findByDate(date)
+        RP-->>SV: ExchangeRateSnapshot
+      else insert ok
+        DB-->>RP: saved
+      end
+
+      SV-->>CT: RatesResponse
+      CT-->>C: 200 OK (freshly fetched)
+    end
+  end
+    </div>
+    <div class="legend">
+      <span class="legend-item">The sequence shows three branches: bad input (400), cache hit (200 fast path), and cache miss with fixer.io fetch + retry + concurrent-write guard.</span>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });
+</script>
+
+</body>
+</html>
