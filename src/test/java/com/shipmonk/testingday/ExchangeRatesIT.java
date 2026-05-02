@@ -1,7 +1,7 @@
 package com.shipmonk.testingday;
 
-import com.shipmonk.testingday.entity.ExchangeRateSnapshot;
-import com.shipmonk.testingday.repository.ExchangeRateSnapshotRepository;
+import com.shipmonk.testingday.rates.entity.ExchangeRateSnapshot;
+import com.shipmonk.testingday.rates.repository.ExchangeRateSnapshotRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
