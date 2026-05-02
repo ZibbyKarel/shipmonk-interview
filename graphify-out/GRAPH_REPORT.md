@@ -1,11 +1,11 @@
 # Graph Report - /Users/zibby/Workspace/shipmonk-interview  (2026-05-02)
 
 ## Corpus Check
-- 27 files · ~27,455 words
+- 27 files · ~27,488 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 222 nodes · 308 edges · 37 communities detected
+- 224 nodes · 311 edges · 37 communities detected
 - Extraction: 69% EXTRACTED · 31% INFERRED · 0% AMBIGUOUS · INFERRED: 95 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -80,8 +80,8 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.1
-Nodes (7): ExchangeRatesController, ExchangeRatesControllerTest, ExchangeRateSnapshot, ExchangeRatesService, ExchangeRatesServiceTest, isHistorical(), isSuccess()
+Cohesion: 0.11
+Nodes (6): ExchangeRatesControllerTest, ExchangeRateSnapshot, ExchangeRatesService, ExchangeRatesServiceTest, isHistorical(), isSuccess()
 
 ### Community 1 - "Community 1"
 Cohesion: 0.14
@@ -125,11 +125,11 @@ Nodes (1): AppConfig
 
 ### Community 11 - "Community 11"
 Cohesion: 0.5
-Nodes (4): Caching Layer over Third-Party Service, fixer.io as Exchange Rates Source, Hibernate/JPA Requirement, PostgreSQL for Cached Exchange Rates
+Nodes (4): Architecture Quality over Feature Coverage, Solid Error Handling for Downstream Services, Exchange Rates Task Assignment, No API Authentication Needed (Internal Service)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.5
-Nodes (4): Architecture Quality over Feature Coverage, Solid Error Handling for Downstream Services, Exchange Rates Task Assignment, No API Authentication Needed (Internal Service)
+Nodes (4): Caching Layer over Third-Party Service, fixer.io as Exchange Rates Source, Hibernate/JPA Requirement, PostgreSQL for Cached Exchange Rates
 
 ### Community 13 - "Community 13"
 Cohesion: 0.5
@@ -137,55 +137,55 @@ Nodes (4): Exchange Rates Task Assignment, Hyperedge: PostgreSQL + Hibernate + D
 
 ### Community 14 - "Community 14"
 Cohesion: 0.67
-Nodes (1): TraceIdFilter
+Nodes (1): TestingdayExchangeRatesApplicationTests
 
 ### Community 15 - "Community 15"
 Cohesion: 0.67
-Nodes (1): ExchangeRateProvider
+Nodes (1): TestingdayExchangeRatesApplication
 
 ### Community 16 - "Community 16"
 Cohesion: 0.67
-Nodes (1): InvalidDateException
+Nodes (1): TraceIdFilter
 
 ### Community 17 - "Community 17"
 Cohesion: 0.67
-Nodes (1): ExchangeRateException
+Nodes (1): ExchangeRateProvider
 
 ### Community 18 - "Community 18"
 Cohesion: 0.67
-Nodes (1): RatesNotFoundException
+Nodes (1): ExchangeRatesController
 
 ### Community 19 - "Community 19"
 Cohesion: 0.67
-Nodes (1): ProviderException
+Nodes (1): InvalidDateException
 
 ### Community 20 - "Community 20"
 Cohesion: 0.67
-Nodes (1): TransientProviderException
+Nodes (1): ExchangeRateException
 
 ### Community 21 - "Community 21"
 Cohesion: 0.67
-Nodes (3): Caching Layer over Third-Party Service, Hibernate/JPA Requirement, PostgreSQL for Cached Exchange Rates
+Nodes (1): RatesNotFoundException
 
 ### Community 22 - "Community 22"
-Cohesion: 1.0
-Nodes (2): TestingdayExchangeRatesApplication, TestingdayExchangeRatesApplication.main
+Cohesion: 0.67
+Nodes (1): ProviderException
 
 ### Community 23 - "Community 23"
-Cohesion: 1.0
-Nodes (2): Community: App Bootstrap & Tests, TestingdayExchangeRatesApplication
+Cohesion: 0.67
+Nodes (1): TransientProviderException
 
 ### Community 24 - "Community 24"
-Cohesion: 1.0
-Nodes (2): Community: API Endpoint Controller, GET /api/v1/rates/{day} Endpoint
+Cohesion: 0.67
+Nodes (3): Caching Layer over Third-Party Service, Hibernate/JPA Requirement, PostgreSQL for Cached Exchange Rates
 
 ### Community 25 - "Community 25"
 Cohesion: 1.0
-Nodes (1): TestingdayExchangeRatesApplicationTests
+Nodes (2): Community: App Bootstrap & Tests, TestingdayExchangeRatesApplication
 
 ### Community 26 - "Community 26"
 Cohesion: 1.0
-Nodes (1): TestingdayExchangeRatesApplicationTests.contextLoads
+Nodes (2): Community: API Endpoint Controller, GET /api/v1/rates/{day} Endpoint
 
 ### Community 27 - "Community 27"
 Cohesion: 1.0
@@ -228,17 +228,11 @@ Cohesion: 1.0
 Nodes (1): Rationale: No Auth Because Internal Service
 
 ## Knowledge Gaps
-- **38 isolated node(s):** `TestingdayExchangeRatesApplicationTests`, `TestingdayExchangeRatesApplicationTests.contextLoads`, `TestingdayExchangeRatesApplication`, `TestingdayExchangeRatesApplication.main`, `fixer.io as Exchange Rates Source` (+33 more)
+- **34 isolated node(s):** `fixer.io as Exchange Rates Source`, `Architecture Quality over Feature Coverage`, `Solid Error Handling for Downstream Services`, `No API Authentication Needed (Internal Service)`, `Hibernate/JPA Requirement` (+29 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 22`** (2 nodes): `TestingdayExchangeRatesApplication`, `TestingdayExchangeRatesApplication.main`
+- **Thin community `Community 25`** (2 nodes): `Community: App Bootstrap & Tests`, `TestingdayExchangeRatesApplication`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 23`** (2 nodes): `Community: App Bootstrap & Tests`, `TestingdayExchangeRatesApplication`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 24`** (2 nodes): `Community: API Endpoint Controller`, `GET /api/v1/rates/{day} Endpoint`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 25`** (1 nodes): `TestingdayExchangeRatesApplicationTests`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (1 nodes): `TestingdayExchangeRatesApplicationTests.contextLoads`
+- **Thin community `Community 26`** (2 nodes): `Community: API Endpoint Controller`, `GET /api/v1/rates/{day} Endpoint`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 27`** (1 nodes): `ExchangeRates.java`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -265,12 +259,12 @@ Nodes (1): Rationale: No Auth Because Internal Service
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Implementation Plan Phase 1` connect `Community 2` to `Community 1`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `ExchangeRatesService (Cache-Aside Logic)` (e.g. with `Rationale: Fixer Free Plan Locks Base to EUR, Rebase Required in Service` and `ExchangeRatesControllerTest Integration Test`) actually correct?**
   _`ExchangeRatesService (Cache-Aside Logic)` has 3 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `TestingdayExchangeRatesApplicationTests`, `TestingdayExchangeRatesApplicationTests.contextLoads`, `TestingdayExchangeRatesApplication` to the rest of the system?**
-  _38 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `fixer.io as Exchange Rates Source`, `Architecture Quality over Feature Coverage`, `Solid Error Handling for Downstream Services` to the rest of the system?**
+  _34 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.1 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.14 - nodes in this community are weakly interconnected._

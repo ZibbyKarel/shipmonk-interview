@@ -2,11 +2,14 @@ package com.shipmonk.testingday.web;
 
 public record ErrorResponse(ErrorDetail error) {
 
-    public ErrorResponse(int code, String info) {
-        this(new ErrorDetail(code, info));
-    }
+  public ErrorResponse(int code, String info) {
+    this(new ErrorDetail(code, info));
+  }
 
-    public boolean isSuccess() { return false; }
+  public boolean isSuccess() {
+    return false;
+  }
 
-    public record ErrorDetail(int code, String info) {}
+  public record ErrorDetail(int code, String info) {
+  }
 }
